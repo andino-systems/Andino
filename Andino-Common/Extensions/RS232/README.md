@@ -25,8 +25,8 @@ The TxD and RxD pins of Channel 1 is connected to the A and B connectors, Channe
 
 First, download the sc16is752 overlay dts-file and the makedts script:
 
-	wget https://github.com/wolrechris/AndinoNew/tree/master/Andino-Common/Extensions/RS232/Raspberry/sc16is752-spi0.dts
-	wget https://github.com/wolrechris/AndinoNew/tree/master/Andino-Common/Extensions/RS232/Raspberry/makedts.sh
+	wget https://github.com/andino-systems/Andino/tree/master/Andino-Common/Extensions/RS232/Raspberry/sc16is752-spi0.dts
+	wget https://github.com/andino-systems/Andino/tree/master/Andino-Common/Extensions/RS232/Raspberry/makedts.sh
 
 Make the script executable and run it
 
@@ -36,7 +36,7 @@ Make the script executable and run it
 
 Alternatively, sc16is752 can also be installed from the dtbo file:
 
-	wget https://github.com/wolrechris/AndinoNew/tree/master/Andino-Common/Extensions/RS232/Raspberry/sc16is752-spi0.dtbo
+	wget https://github.com/andino-systems/Andino/tree/master/Andino-Common/Extensions/RS232/Raspberry/sc16is752-spi0.dtbo
 	sudo cp ./sc16is752-spi0.dtbo /boot/overlays/
 
 #### Starting sc16is752 on bootup 
