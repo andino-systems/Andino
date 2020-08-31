@@ -37,15 +37,15 @@ This Repository contains the
 
 Install sc16is752 overlay from dts-file
 ```
-wget https://github.com/wolrechris/AndinoNew/tree/master/Andino-Common/Extensions/RS232/Raspberry/sc16is752-spi0.dts
-wget https://github.com/wolrechris/AndinoNew/tree/master/Andino-Common/Extensions/RS232/Raspberry/makedts.sh
+wget https://github.com/andino-systems/Andino/tree/master/Andino-Common/Extensions/RS232/Raspberry/sc16is752-spi0.dts
+wget https://github.com/andino-systems/Andino/tree/master/Andino-Common/Extensions/RS232/Raspberry/makedts.sh
 chmod +x makedts.sh
 ./makedts
 ```
 
 or download the dtbo file
 ```
-wget https://github.com/wolrechris/AndinoNew/tree/master/Andino-Common/Extensions/RS232/Raspberry/sc16is752-spi0.dtbo
+wget https://github.com/andino-systems/Andino/tree/master/Andino-Common/Extensions/RS232/Raspberry/sc16is752-spi0.dtbo
 sudo cp ./sc16is752-spi0.dtbo /boot/overlays/
 ```
 
