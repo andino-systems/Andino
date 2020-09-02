@@ -1,9 +1,9 @@
 {
     "name": "node-red-contrib-andino-sms",
+	"license": "Apache-2.0",
     "version": "1.0.0",
     "description": "Nodes enabling SMS processing on an Andino board.",
     "dependencies": {
-        "node-red-contrib-andinox1": "0.0.6"
     },
     "keywords": [
         "node-red"
@@ -16,4 +16,8 @@
             "SMS Sender": "smsSender/smsSender.js"
         }
     }
+	"repository": {
+     "type": "git",
+     "url": "https://github.com/andino-systems/Andino/tree/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms"
+  },
 }

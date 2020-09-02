@@ -49,7 +49,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/andino-systems/Andino-X1/tree/master/src/node-red-contrib-andinox1"
+    "url": "https://github.com/andino-systems/Andino/tree/master/Andino-Common/src/NodeRed/AndinoX1Node/node-red-contrib-andinox1"
   },
   "scripts": {},
   "version": "0.0.6"
