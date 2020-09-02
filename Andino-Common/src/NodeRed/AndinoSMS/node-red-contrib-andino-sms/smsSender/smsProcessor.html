@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    RED.nodes.registerType('smsSender',{
+        category: 'function',
+        color:"#E2D96E",
+        defaults: {
+            name: {value:""},
+            channel: { value: "1" },
+            filter: { value: "counter" }
+        },
+        inputs:1,
+        outputs:1,
+        icon: "debug.png",
+        label: function() {
+            return this.name||"smsSender";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="smsSender">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-tips"><b> </b></div>
+</script>
+
+<script type="text/html" data-help-name="smsSender">
+   <p>This Node, in conjunction with a serial out node, enables sending SMS to a target phone number.</p>
+   <h3>Outputs</h3>
+       <dl class="message-properties">
+       <dt>payload
+           <span class="property-type">string | buffer</span>
+       </dt>
+   <h3>Details</h3>
+   <p>The node requires two input values:</p>
+   <p>msg.number (String) - The phone number of the intended recipient. It is recommended, but not always necessary, to include the country code in phone numbers. The number has to be in a dialable format. (eg. +4915123456)</p>
+   <p>msg.payload (String) - The message that will be sent to the recipient.</p>
+</script>
