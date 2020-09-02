@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('smsChecker',{
+    RED.nodes.registerType('smsListener',{
         category: 'function',
         color:"#E2D96E",
         defaults: {
@@ -11,7 +11,7 @@
         outputs:1,
         icon: "debug.png",
         label: function() {
-            return this.name||"smsChecker";
+            return this.name||"smsListener";
         },
         labelStyle: function() {
             return this.name?"node_label_italic":"";
@@ -19,7 +19,7 @@
     });
 </script>
 
-<script type="text/html" data-template-name="smsChecker">
+<script type="text/html" data-template-name="smsListener">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -27,13 +27,13 @@
     <div class="form-tips"><b> </b></div>
 </script>
 
-<script type="text/html" data-help-name="smsChecker">
-   <p>Sends out a request reading all unread messages to the modem when receiving an input.</p>
+<script type="text/html" data-help-name="smsListener">
+   <p>Checks all inputs for an indicator message, that a new SMS has arrived (+CMTI:).</p>
    <h3>Outputs</h3>
        <dl class="message-properties">
        <dt>payload
            <span class="property-type">string | buffer</span>
        </dt>
    <h3>Details</h3>
-   <p>The node first sets to modem to text mode, then sends a check SMS command after 300ms.</p>
+   <p>When receiving a matching message, it relays the message to the next node.</p>
 </script>
