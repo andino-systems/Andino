@@ -22,6 +22,11 @@ The 4G modem is connected via USB. Using an LTE connection it can be used for hi
 - [How to set up the 4G modem via ppp (not recommended for data transfer)](../../../Andino-Common/Extensions/4G-Modem-SIM7600/ppp)
 - [How to send / receive SMS](../../../Andino-Common/Extensions/4G-Modem-SIM7600/sms)
 
+### Programming examples
+
+- [Using NodeRed with the Andino X1](../../../Andino-Common/src/NodeRed) 
+
+
 Author
 -----
 

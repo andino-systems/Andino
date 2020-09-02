@@ -20,6 +20,10 @@ This Extension provides a DualChannel UART to the Raspberry Pi or the Arduino Co
 - [Andino X1: BaseBoard Setup](../../BaseBoard)
 - [Dual Channel UART RS232 Extension: Setup](../../../Andino-Common/Extensions/RS232)
 
+### Programming examples
+
+- [Using NodeRed with the Andino X1](../../../Andino-Common/src/NodeRed) 
+
 Author
 -----
 

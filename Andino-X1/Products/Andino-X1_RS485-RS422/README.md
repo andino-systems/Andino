@@ -20,6 +20,10 @@ This Plugin for the [Andino X1][1], provides a single channel, fully Isolated RS
 - [Andino X1: BaseBoard Setup](../../BaseBoard)
 - [Fully isolated RS485 and RS422 Extension: Setup](../../../Andino-Common/Extensions/RS485_RS422)
 
+### Programming examples
+
+- [Using NodeRed with the Andino X1](../../../Andino-Common/src/NodeRed) 
+
 
 Author
 -----

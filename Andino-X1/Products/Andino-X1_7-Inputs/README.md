@@ -24,6 +24,10 @@ The addition of the 5 digital inputs extension increases the total number of inp
 - [Andino X1: BaseBoard Setup](../../BaseBoard)
 - [5 Digital Inputs extension: Setup](../../../Andino-Common/Extensions/5DI)
 
+### Programming examples
+
+- [Using NodeRed with the Andino X1](../../../Andino-Common/src/NodeRed) 
+
 Author
 -----
 

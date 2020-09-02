@@ -20,6 +20,10 @@ With this extension adding two relays and one digital input to the Andino X1, th
 - [Andino X1: BaseBoard Setup](../../BaseBoard)
 - [2 Digital Output / 1 Digital Input Extension: Setup](../../../Andino-Common/Extensions/2DO1DI)
 
+### Programming examples
+
+- [Using NodeRed with the Andino X1](../../../Andino-Common/src/NodeRed)   
+
 Author
 -----
 

@@ -22,6 +22,10 @@ The 2G modem is connected to the UART RS232-WAN extension as descibed in Dual Ch
 - [How to send / receive SMS](../../../Andino-Common/Extensions/2G-Modem-SIM800L/sms)
 - [How to set up ppp and connect to the internet](../../../Andino-Common/Extensions/2G-Modem-SIM800L/ppp)
 
+### Programming examples
+
+- [Using NodeRed with the Andino X1](../../../Andino-Common/src/NodeRed) 
+
 Author
 -----
 

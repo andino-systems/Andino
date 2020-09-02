@@ -20,6 +20,10 @@ The CAN Bus extension allows controlling devices via the BUS interface using the
 - [Andino X1: BaseBoard Setup](../../BaseBoard)
 - [CAN Bus Extension: Setup](../../../Andino-Common/Extensions/CAN)
 
+### Programming examples
+
+- [Using NodeRed with the Andino X1](../../../Andino-Common/src/NodeRed) 
+
 
 Author
 -----

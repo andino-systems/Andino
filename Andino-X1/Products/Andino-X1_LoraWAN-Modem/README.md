@@ -20,6 +20,10 @@ The LoraWAN modem is connected to the UART RS232-WAN extension as descibed in Du
 - [Andino X1: BaseBoard Setup](../../BaseBoard)
 - [LoraWAN modem (RN2483): Setup & documentation](../../../Andino-Common/Extensions/LoRaWAN-Modem)
 
+### Programming examples
+
+- [Using NodeRed with the Andino X1](../../../Andino-Common/src/NodeRed) 
+
 Author
 -----
 

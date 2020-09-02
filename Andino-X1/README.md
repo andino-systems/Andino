@@ -65,7 +65,7 @@ The integrated, battery-buffered RTC provides the correct time even if no NTP (t
 
 ### Programming examples
 
-**[How to use Andino X1 with Node red](./src/node-red-contrib-andinox1)**   
+**[Using NodeRed with the Andino X1](../Andino-Common/src/NodeRed)**   
 **[How to use Andino X1 with python](./src/python)**   
 **[Example Firmware](./src/firmware)**   
 

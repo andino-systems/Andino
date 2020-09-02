@@ -15,9 +15,9 @@
             "SMS Checker": "smsChecker/smsChecker.js",
             "SMS Sender": "smsSender/smsSender.js"
         }
-    }
+    },
 	"repository": {
      "type": "git",
      "url": "https://github.com/andino-systems/Andino/tree/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms"
-  },
+  }
 }
