@@ -1,6 +1,14 @@
 module.exports = function(RED) {
     "use strict";
-    function smsChecker(config) {
+	function smsChecker(config) {
+        RED.nodes.createNode(this,config);
+        this.on("input", function (msg) {
+            checkSms(msg);
+        });
+    }
+	
+	
+    function checkSms(msg) {
 	    RED.nodes.createNode(this,config);
 
         //set modem to text mode

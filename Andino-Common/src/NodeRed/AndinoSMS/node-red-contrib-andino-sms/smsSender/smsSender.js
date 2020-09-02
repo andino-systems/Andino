@@ -2,6 +2,12 @@ module.exports = function(RED) {
     "use strict";
     function smsSender(config) {
         RED.nodes.createNode(this,config);
+        this.on("input", function (msg) {
+            sendSms(msg);
+        });
+    }
+	
+	function sendSms(msg) {
         // sms sender code
         var message = msg.payload;
     

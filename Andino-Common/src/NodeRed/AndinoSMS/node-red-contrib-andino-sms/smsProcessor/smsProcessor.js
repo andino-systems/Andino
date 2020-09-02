@@ -4,8 +4,13 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var number=context.get("number");
         var timestamp=context.get("timestamp")
-    
-        if(number===undefined){
+        this.on("input", function (msg) {
+            process(msg);
+        });
+    }
+	
+	function process(msg){
+	    if(number===undefined){
             number=null;
         }
     
@@ -31,8 +36,8 @@ module.exports = function(RED) {
            context.set("timestamp",timestamp);
         }
         return null;
-
-    }
-
+	
+	
+	}
     RED.nodes.registerType("smsProcessor",smsProcessor);
 }
