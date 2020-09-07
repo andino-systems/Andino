@@ -12,13 +12,15 @@ module.exports = function(RED) {
 	    RED.nodes.createNode(this,config);
 
         //set modem to text mode
-        msg.payload="at+cmgf=1";
-        this.send(msg);
-        new Promise(resolve => setTimeout(resolve, 300));
-    
+        setTimeout(function(){
+		    msg.payload="at+cmgf=1";
+            node.send(msg);
+        }, 500);
+
         //send sms check message
         msg.payload="at+cmgl=\"REC UNREAD\"";
-        this.send(msg);
+        node.send(msg);
+        return null;
     }
 RED.nodes.registerType("smsChecker",smsChecker);
 }

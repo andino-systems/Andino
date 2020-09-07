@@ -12,25 +12,27 @@ module.exports = function(RED) {
         var message = msg.payload;
     
         //changing modem to text mode
-        msg.payload="at+cmgf=1";
-        this.send(msg);
-        await sleep(300);
+        setTimeout(function(){
+		    msg.payload="at+cmgf=1";
+            this.send(msg);
+        }, 500);
     
         //entering recipient number
-        msg.payload="at+cmgs=\"" + msg.number + "\"";
-        this.send(msg);
-        await sleep(300);
+        setTimeout(function(){
+		    msg.payload="at+cmgs=\"" + msg.number + "\"";
+            this.send(msg);
+        }, 500);
     
         //entering message
-        var chr = String.fromCharCode(26);
-        msg.payload = message + chr;
-        this.send(msg);
+        setTimeout(function(){
+		    var chr = String.fromCharCode(26);
+            msg.payload = message + chr;
+			this.send(msg);
+        }, 500);
+		
+		return null;
     }
 
-    //sleep function
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
 
 RED.nodes.registerType("smsSender",smsSender);
 }
