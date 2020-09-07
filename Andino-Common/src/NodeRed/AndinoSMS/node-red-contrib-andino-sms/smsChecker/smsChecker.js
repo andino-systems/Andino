@@ -5,20 +5,18 @@ module.exports = function(RED) {
         this.on("input", function (msg) {
             checkSms(msg);
         });
-    }
-	
-	
-    function checkSms(msg) {
-	    //set modem to text mode
-        setTimeout(function(){
-		    //msg.payload="at+cmgf=1";
-            this.send(msg);
-        }, 500);
+		
+        //set modem to text mode
+		msg.payload="at+cmgf=1";
+        this.send(msg);
+        
 
         //send sms check message
-        msg.payload="at+cmgl=\"REC UNREAD\"";
-        this.send(msg);
-        return null;
+        setTimeout(function(){
+		    msg.payload="at+cmgl=\"REC UNREAD\"";
+            this.send(msg);
+            return null;
+        }, 500);
     }
 RED.nodes.registerType("smsChecker",smsChecker);
 }
