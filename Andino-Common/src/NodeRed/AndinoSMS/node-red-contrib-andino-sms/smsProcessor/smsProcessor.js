@@ -2,15 +2,17 @@ module.exports = function(RED) {
     "use strict";
     function smsProcessor(config) {
         RED.nodes.createNode(this,config);
-        var number=context.get("number");
-        var timestamp=context.get("timestamp")
         this.on("input", function (msg) {
             process(msg);
-        });
+        })
     }
 	
 	function process(msg){
-	    if(number===undefined){
+	    var nodeContext = this.context();
+        var number=nodeContext.get("number");
+        var timestamp=nodeContext.get("timestamp");
+		
+		if(number===undefined){
             number=null;
         }
     
@@ -20,8 +22,8 @@ module.exports = function(RED) {
             msg.timestamp=timestamp;
             msg.payload=msg.payload.substring(0, msg.payload.length-1);
         
-            context.set("number", null);
-            context.set("timestamp", null);
+            nodeContext.set("number", null);
+            nodeContext.set("timestamp", null);
         
             this.send(msg);
             return null;
@@ -32,8 +34,8 @@ module.exports = function(RED) {
             var payloadData = msg.payload.split(',');
             number=payloadData[2].substring(1, payloadData[2].length-2);
             timestamp=(payloadData[4].substring(1) + " " + payloadData[5].substring(0, payloadData[5].length-6));
-            context.set("number",number);
-           context.set("timestamp",timestamp);
+            nodeContext.set("number",number);
+            nodeContext.set("timestamp",timestamp);
         }
         return null;
 	

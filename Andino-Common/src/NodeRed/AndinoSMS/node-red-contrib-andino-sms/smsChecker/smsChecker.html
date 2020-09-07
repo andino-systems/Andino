@@ -3,18 +3,13 @@
         category: 'function',
         color:"#E2D96E",
         defaults: {
-            name: {value:""},
-            channel: { value: "1" },
-            filter: { value: "counter" }
+            name: {value:"Check for SMS"}
         },
         inputs:1,
         outputs:1,
         icon: "debug.png",
         label: function() {
             return this.name||"smsChecker";
-        },
-        labelStyle: function() {
-            return this.name?"node_label_italic":"";
         }
     });
 </script>

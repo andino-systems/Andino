@@ -5,7 +5,7 @@ module.exports = function(RED) {
         this.on("input", function (msg) {
             //check if message is new sms indicator
             if(msg.payload.startsWith("+CMTI:")){
-                this.send msg;
+                this.send(msg);
 				return null;
             }else{
                return null;
