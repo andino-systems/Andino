@@ -22,8 +22,8 @@ module.exports = function(RED) {
             msg.timestamp=timestamp;
             msg.payload=msg.payload.substring(0, msg.payload.length-1);
         
-            nodeContext.set("number", null);
-            nodeContext.set("timestamp", null);
+			this.context.set("number", null);
+			this.context.set("timestamp", null);
         
             this.send(msg);
             return null;
@@ -34,8 +34,8 @@ module.exports = function(RED) {
             var payloadData = msg.payload.split(',');
             number=payloadData[2].substring(1, payloadData[2].length-2);
             timestamp=(payloadData[4].substring(1) + " " + payloadData[5].substring(0, payloadData[5].length-6));
-            nodeContext.set("number",number);
-            nodeContext.set("timestamp",timestamp);
+            this.context.set("number", number);
+            this.context.set("timestamp", timestamp);
         }
         return null;
 	

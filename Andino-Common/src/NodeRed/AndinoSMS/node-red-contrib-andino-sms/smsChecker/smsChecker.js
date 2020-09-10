@@ -3,19 +3,22 @@ module.exports = function(RED) {
 	function smsChecker(config) {
         RED.nodes.createNode(this,config);
         this.on("input", function (msg) {
-            
-			//set modem to text mode
-	        msg.payload="at+cmgf=1";
-            this.send(msg);
-
-            //send sms check message
-            setTimeout(function(){
-	    	    msg.payload="at+cmgl=\"REC UNREAD\"";
-                this.send(msg);
-                return null;
-            }, 500);
-		
+            var node = this;
+			textMode(node, msg);
+			setTimeout(function(node, msg){
+		    msg.payload="at+cmgl=\"REC UNREAD\"";
+		    node.send(msg);
+			}, 1000);
+		    return null;
 		});
     }
+	
+	function textMode(node, msg){
+        msg.payload="at+cmgf=1";
+        node.send(msg);
+	}	
+    
+	
+	
 RED.nodes.registerType("smsChecker",smsChecker);
 }
