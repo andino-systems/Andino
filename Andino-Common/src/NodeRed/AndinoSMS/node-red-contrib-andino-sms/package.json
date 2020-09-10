@@ -13,7 +13,7 @@
             "SMS Processor": "smsProcessor/smsProcessor.js",
             "SMS Listener": "smsListener/smsListener.js",
             "SMS Checker": "smsChecker/smsChecker.js",
-            "SMS Sender": "smsSender/smsSender.js",
+            "SMS Sender": "smsSender/smsSender.js"
         }
     },
 	"repository": {
