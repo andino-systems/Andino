@@ -1,9 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('smsProcessor',{
+    RED.nodes.registerType('smsDeleter',{
         category: 'function',
         color:"#E2D96E",
         defaults: {
-            name: {value:"Process SMS"},
+            name: {value:"Delete SMS"},
             channel: { value: "1" },
             filter: { value: "counter" }
         },
@@ -11,12 +11,12 @@
         outputs:1,
         icon: "debug.png",
         label: function() {
-            return this.name||"smsProcessor";
+            return this.name||"smsDeleter";
         }
     });
 </script>
 
-<script type="text/html" data-template-name="smsProcessor">
+<script type="text/html" data-template-name="smsDeleter">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -24,16 +24,13 @@
     <div class="form-tips"><b> </b></div>
 </script>
 
-<script type="text/html" data-help-name="smsProcessor">
-   <p>Takes incoming signals messages from a serial node, checks if the input is part of an SMS message and returns a message.</p>
+<script type="text/html" data-help-name="smsDeleter">
+   <p>Deletes all SMS from SMS storage</p>
    <h3>Outputs</h3>
        <dl class="message-properties">
        <dt>payload
            <span class="property-type">string | buffer</span>
        </dt>
    <h3>Details</h3>
-   <p>The returned message has the following variables:</p>
-   <p>msg.payload (String) - The content of the SMS.</p>
-   <p>msg.number (String) - The number the SMS has been sent from.</p>
-   <p>msg.timestamp (String) - The arrival time of the SMS.</p>
+   <p>Deletes all messages from message storage when receiving an input.</p>
 </script>

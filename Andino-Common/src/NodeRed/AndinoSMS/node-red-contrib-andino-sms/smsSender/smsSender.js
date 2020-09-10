@@ -4,57 +4,33 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         this.on("input", function (msg) {
 			var message = msg.payload;
+			var newMsg1 = {
+                payload: {} 
+			};
+
 			//set to text mode
-			msg.payload="at+cmgf=1";
-            this.send(msg);
+			newMsg1.payload="at+cmgf=1";
+            this.send(newMsg1);
 			
 		    //entering recipient number
-            setTimeout(function(){
-			    msg.payload="at+cmgs=\"" + msg.number + "\"";
-			    this.send(msg);
-            }, 20);
+			var newMsg2 = {
+                    payload: {} 
+			    };
+			    newMsg2.payload="at+cmgs=\"" + msg.number + "\"";
+			    this.send(newMsg2);
             
 		
             //entering message
-            setTimeout(function(){
+            var newMsg3 = {
+                    payload: {} 
+			    };
 			    var chr = String.fromCharCode(26);
-                msg.payload = message + chr;
-		        this.send(msg);
-            }, 20);
-		    
-		
+                newMsg3.payload = message + chr;
+		        this.send(newMsg3);
+
 		    return null;
         });
     }
-	
-	function sendSms(msg) {
-        // sms sender code
-        /*
-		var message = msg.payload;
-        
-        //changing modem to text mode
-        setTimeout(function(){
-        }, 500);
-		msg.payload="at+cmgf=1";
-        this.send(msg);
-    
-        //entering recipient number
-        setTimeout(function(){
-        }, 500);
-        msg.payload="at+cmgs=\"" + msg.number + "\"";
-        this.send(msg);
-		
-        //entering message
-        setTimeout(function(){
-        }, 500);
-		var chr = String.fromCharCode(26);
-        msg.payload = message + chr;
-		this.send(msg);
-		
-		return null;
-		*/
-    }
-
 
 RED.nodes.registerType("smsSender",smsSender);
 }
