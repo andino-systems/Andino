@@ -25,6 +25,7 @@ The 2G modem is connected to the UART RS232-WAN extension as descibed in Dual Ch
 ### Programming examples
 
 - [Using NodeRed with the Andino X1](../../../Andino-Common/src/NodeRed) 
+- [Using NodeRed to send and receive SMS](../../../Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms) 
 
 Author
 -----
