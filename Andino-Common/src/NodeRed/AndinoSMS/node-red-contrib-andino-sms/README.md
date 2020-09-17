@@ -18,11 +18,11 @@ This Node, in conjunction with a serial out node, enables sending SMS to a targe
 * **msg.number** (String) - The phone number of the intended recipient. It is recommended, but not always necessary, to include the country code in phone numbers. The number has to be in a dialable format. (eg. +4915123456)
 * **msg.payload** (String) - The message that will be sent to the recipient.
 
-The node then sends three output messages (switching the modem to text mode, entering the phone number, entering the message) with a delay of 300ms each.
+The node then sends three output messages (switching the modem to text mode, entering the phone number, entering the message).
 
 ## SMS Checker
 
-The SMS Checker node sends out a request reading all unread messages to the modem when receiving an input. It first sets to modem to text mode, then sends a check SMS command after 300ms.
+The SMS Checker node sends out a request reading all unread messages to the modem when receiving an input. It first sets to modem to text mode, then sends a check SMS command.
 
 ## SMS Listener
 
