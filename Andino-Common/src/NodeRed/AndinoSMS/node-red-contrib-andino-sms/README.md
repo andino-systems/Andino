@@ -3,7 +3,7 @@ Andino / RaspberryPi: SMS Handling Nodes
 
 A collection of [Node-RED][1] nodes that enable sending and receiving SMS from [Andino](https://github.com/andino-systems/Andino) boards.
 
-![Andino X1](https://github.com/andino-systems/Andino/blob/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms/img/andinoX1.png)
+![Andino X1](https://raw.githubusercontent.com/andino-systems/Andino/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms/img/andinoX1.png)
 
 Andino boards, like the [Andino X1](https://github.com/andino-systems/Andino/tree/master/Andino-X1), [Andino X2](https://github.com/andino-systems/Andino/tree/master/Andino-X2) and [Andino IO](https://github.com/andino-systems/Andino/tree/master/Andino-IO) enable the usage of the Raspberry Pi in industrial environments by providing a housing, several digital inputs and relay outputs.
 
@@ -55,13 +55,13 @@ Using the nodes as described above, we created several example flows for common 
 
 ### Sending SMS
 
-![Sending SMS Example](https://github.com/andino-systems/Andino/blob/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms/img/Flows/SendingSMS.png)
+![Sending SMS Example](https://raw.githubusercontent.com/andino-systems/Andino/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms/img/Flows/SendingSMS.png)
 
 Using the *Send SMS* node in combination with a *Serial out* node, this flow can send SMS for testing purposes. The flow is initiated by a inject node, injecting *msg.payload* and *msg.number*.
 
 ### Reading SMS manually
 
-![Reading SMS Manually Example](https://github.com/andino-systems/Andino/blob/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms/img/Flows/ReadingSMSManually.png)
+![Reading SMS Manually Example](https://raw.githubusercontent.com/andino-systems/Andino/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms/img/Flows/ReadingSMSManually.png)
 
 This flow can roughly be split in two parts: At first, the *Check for SMS* node is triggered by an inject node. It then sends out a check message request through the *Serial Out* node.
 
@@ -69,7 +69,7 @@ The *Process SMS* node then checks all incoming messages from the *Serial in* no
 
 ### Reading SMS automatically
 
-![Readubg SMS Automatically Example](https://github.com/andino-systems/Andino/blob/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms/img/Flows/ReadingSMSAutomatically.png)
+![Readubg SMS Automatically Example](https://raw.githubusercontent.com/andino-systems/Andino/master/Andino-Common/src/NodeRed/AndinoSMS/node-red-contrib-andino-sms/img/Flows/ReadingSMSAutomatically.png)
 
 On this flow, the *Serial in* node sends all incoming messages to the *Listen for SMS* node. This checks if the incoming message indicates a new SMS. If it does, it triggers the *Check for SMS* node, which sends an SMS Read request to the *Serial out* node.
 
