@@ -1,7 +1,16 @@
-Andino: SMS Handling Nodes
+Andino / RaspberryPi: SMS Handling Nodes
 ====================
 
-A collection of [Node-RED][1] nodes that enable sending and receiving SMS from [Andino](../../../../../) boards.
+A collection of [Node-RED][1] nodes that enable sending and receiving SMS from [Andino](https://github.com/andino-systems/Andino) boards.
+
+![Andino X1](./img/andinoX1.png)
+
+Andino boards, like the [Andino X1](https://github.com/andino-systems/Andino/tree/master/Andino-X1), [Andino X2](https://github.com/andino-systems/Andino/tree/master/Andino-X2) and [Andino IO](https://github.com/andino-systems/Andino/tree/master/Andino-IO) enable the usage of the Raspberry Pi in industrial environments by providing a housing, several digital inputs and relay outputs.
+
+**For more information, please refer to:**
+
+* [Our shop page](https://andino.shop/)
+* [Our GitHub documentation](https://github.com/andino-systems/Andino)
 
 -------
 
@@ -22,7 +31,7 @@ The node then sends three output messages (switching the modem to text mode, ent
 
 ## SMS Checker
 
-The SMS Checker node sends out a request reading all unread messages to the modem when receiving an input. It first sets to modem to text mode, then sends a check SMS command.
+The SMS Checker node sends out a request reading all unread messages to the modem when receiving an input (the content of the input message is irrelevant). It first sets to modem to text mode, then sends a check SMS command.
 
 ## SMS Listener
 
@@ -40,6 +49,36 @@ The SMS Processor node takes incoming signals messages from a serial node, check
 
 # Example Flows
 
+**Downloads for all example flows can be found on [GitHub](https://github.com/andino-systems/Andino/tree/master/Andino-Common/src/NodeRed/AndinoSMS/Flows/FlowsCustomNodes)!**
+
+Using the nodes as described above, we created several example flows for common use cases in SMS processing. These include:
+
+### Sending SMS
+
+![SendingSMSExample](./img/Flows/SendingSMS.png)
+
+Using the *Send SMS* node in combination with a *Serial out* node, this flow can send SMS for testing purposes. The flow is initiated by a inject node, injecting *msg.payload* and *msg.number*.
+
+### Reading SMS manually
+
+![SendingSMSExample](./img/Flows/ReadingSMSManually.png)
+
+This flow can roughly be split in two parts: At first, the *Check for SMS* node is triggered by an inject node. It then sends out a check message request through the *Serial Out* node.
+
+The *Process SMS* node then checks all incoming messages from the *Serial in* node for an SMS output message. These are sent to three debug nodes that print *msg.timestamp*, *msg.number* and *msg.payload* to the debug window.
+
+### Reading SMS automatically
+
+![SendingSMSExample](./img/Flows/ReadingSMSAutomatically.png)
+
+On this flow, the *Serial in* node sends all incoming messages to the *Listen for SMS* node. This checks if the incoming message indicates a new SMS. If it does, it triggers the *Check for SMS* node, which sends an SMS Read request to the *Serial out* node.
+
+As above, the *Process SMS* node then checks all incoming messages from the *Serial in* node for an SMS output message. These are sent to three debug nodes that print *msg.timestamp*, *msg.number* and *msg.payload* to the debug window.
+
+
+### Flows using function nodes
+
+While the flows using function nodes offer most of the functionality of the custom nodes, they cannot be imported into existing projects in NodeRed as easily. Their use is only recommended for testing. See here for a [list of all function node flows](https://github.com/andino-systems/Andino/tree/master/Andino-Common/src/NodeRed/AndinoSMS/Flows/FlowsFunctionNodes).
 
 
 Author
