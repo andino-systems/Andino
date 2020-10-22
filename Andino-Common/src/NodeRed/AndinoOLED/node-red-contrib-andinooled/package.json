@@ -1,0 +1,20 @@
+{
+    "name": "node-red-contrib-andinooled",
+	"license": "Apache-2.0",
+    "version": "0.2.1",
+    "description": "A Node Red node that enables processing of text for the AndinoIO OLED display.",
+    "dependencies": {
+    },
+    "keywords": [
+        "node-red"
+    ],
+    "node-red": {
+        "nodes": {
+            "Andino OLED": "andinooled.js"
+        }
+    },
+	"repository": {
+     "type": "git",
+     "url": ""
+  }
+}

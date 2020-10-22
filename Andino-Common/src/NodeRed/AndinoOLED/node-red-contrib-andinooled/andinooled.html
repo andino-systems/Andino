@@ -1,0 +1,69 @@
+<script type="text/x-red" data-template-name="AndinoOLED">
+    <div class="form-row">
+        <div class="form-row>
+			<label for="node-input-dual"><i class="icon-tag"></i> Type</label>
+			<select type="text" id="node-input-dual" style="width: 300px;">
+				<option value="0">1 column</option>
+				<option value="1">2 columns</option>
+			</select>
+		</div>
+		<div class="form-row>
+			<label for="node-input-mode1"><i class="icon-tag"></i> Mode Column 1</label>
+			<select type="text" id="node-input-mode1" style="width: 300px;">
+				<option value="10">1 line, 3 chars</option>
+				<option value="11">1 line, 4 chars</option>
+				<option value="20">2 lines, 6 chars</option>
+				<option value="21">2 lines, 9 chars</option>
+				<option value="30">3 lines, 9 chars</option>
+				<option value="31">3 lines, 12 chars</option>
+				<option value="40">4 lines, 14 chars</option>
+				<option value="60">6 lines, 21 chars</option>
+			</select>
+		</div>
+		<div class="form-row>
+			<label for="node-input-mode2"><i class="icon-tag"></i> Mode Column 2</label>
+			<select type="text" id="node-input-mode2" style="width: 300px;">
+				<option value="10">1 line, 3 chars</option>
+				<option value="11">1 line, 4 chars</option>
+				<option value="20">2 lines, 6 chars</option>
+				<option value="21">2 lines, 9 chars</option>
+				<option value="30">3 lines, 9 chars</option>
+				<option value="31">3 lines, 12 chars</option>
+				<option value="40">4 lines, 14 chars</option>
+				<option value="60">6 lines, 21 chars</option>
+			</select>
+		</div>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" style="width: 300px;">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="AndinoOLED">
+    <p>Enables printing text to the OLED display of the Andino IO.</p>
+    <p>To use the node, first select the number of columns desired (when selecting two columns, the screen will be split in the middle)</p>
+	<p>Then, select the number of lines/characters for the colums. The characters describe the length of the string that can be diplayed in one line of the display at the same time. The second mode will only be applied if two columns are enabled.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('AndinoOLED',{
+        category: 'function',
+        color:"#E2D96E",
+        defaults: {
+            dual: {value:""},
+            mode1: { value: "" },
+            mode2: { value: "" }
+        },
+        inputs:1,
+        outputs:1,
+        icon: "debug.png",
+        label: function() {
+            return this.name||"AndinoOLED";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+
