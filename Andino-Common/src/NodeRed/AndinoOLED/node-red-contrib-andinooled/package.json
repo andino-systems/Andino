@@ -15,6 +15,6 @@
     },
 	"repository": {
      "type": "git",
-     "url": ""
+     "url": "https://github.com/andino-systems/Andino/tree/master/Andino-Common/src/NodeRed/AndinoOLED/node-red-contrib-andinooled"
   }
 }
