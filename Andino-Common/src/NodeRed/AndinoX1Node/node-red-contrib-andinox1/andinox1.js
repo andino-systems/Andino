@@ -10,6 +10,8 @@ module.exports = function(RED) {
                 case "events": doEvents(node,msg);break;
                 case "relay1": doRelais(node, msg, 1); break;
                 case "relay2": doRelais(node, msg, 2); break;
+				case "relay1state": getRelais(node, msg, 2); break;
+				case "relay2state": getRelais(node, msg, 2); break;
             }
         });
     }
@@ -18,7 +20,7 @@ module.exports = function(RED) {
 
         var p = msg.payload.split('{');
 
-	if( p.length != 3 )
+	if((p.length != 3) && (p.length != 4))
 	{
 	  return;
 	}
@@ -40,9 +42,20 @@ module.exports = function(RED) {
       	  newMsg.payload["Pin"+i] = parseInt("0x"+p);
           i++;
     	});
+   
+	//relay states
+	if(p.length == 4){
+		var relaystates  = p[3].replace('}','').split(',');
+		i = 1;
+		relaystates.forEach( function(q) {
+			newMsg.payload["RelayStates"+i] = parseInt("0x"+q);
+			i++;
+    	});
 
-        node.send(newMsg);
-    }
+	}
+	node.send(newMsg);
+	
+	}
 
     function doRelais(node, msg, relais) {
         var state = toBoolean(msg.payload);

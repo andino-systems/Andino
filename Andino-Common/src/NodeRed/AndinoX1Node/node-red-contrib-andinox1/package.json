@@ -1,6 +1,6 @@
 {
-  "_from": "node-red-contrib-andinox1@0.0.6",
-  "_id": "node-red-contrib-andinox1@0.0.6",
+  "_from": "node-red-contrib-andinox1@0.0.7",
+  "_id": "node-red-contrib-andinox1@0.0.7",
   "_inBundle": false,
   "_integrity": "sha1-GNU9Q8PGnOC7pfpHtcfiGpIUUME=",
   "_location": "/node-red-contrib-andinox1",
@@ -8,12 +8,12 @@
   "_requested": {
     "type": "version",
     "registry": true,
-    "raw": "node-red-contrib-andinox1@0.0.6",
+    "raw": "node-red-contrib-andinox1@0.0.7",
     "name": "node-red-contrib-andinox1",
     "escapedName": "node-red-contrib-andinox1",
-    "rawSpec": "0.0.6",
+    "rawSpec": "0.0.7",
     "saveSpec": null,
-    "fetchSpec": "0.0.6"
+    "fetchSpec": "0.0.7"
   },
   "_requiredBy": [
     "#USER",
@@ -21,7 +21,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/node-red-contrib-andinox1/-/node-red-contrib-andinox1-0.0.6.tgz",
   "_shasum": "18d53d43c3c69ce0bba5fa47b5c7e21a921450c1",
-  "_spec": "node-red-contrib-andinox1@0.0.6",
+  "_spec": "node-red-contrib-andinox1@0.0.7",
   "_where": "/home/pi/.node-red",
   "author": {
     "name": "Marcus Leufgen",
@@ -52,5 +52,5 @@
     "url": "https://github.com/andino-systems/Andino/tree/master/Andino-Common/src/NodeRed/AndinoX1Node/node-red-contrib-andinox1"
   },
   "scripts": {},
-  "version": "0.0.6"
+  "version": "0.0.7"
 }
