@@ -1,0 +1,16 @@
+in /boot/config.txt
+
+dtparam=spi=on
+dtoverlay=spi0-cs,cs0_pin=8,cs1_pin=12
+
+# Overlay for SPI UART
+#dtoverlay=sc16is752-spi0,int_pin=7
+
+# Oberlay for CAN Bus
+dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=7
+
+
+
+
+
+
