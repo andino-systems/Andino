@@ -1,3 +1,11 @@
+#     ___   ________  ________            _________    ______  _______
+#   .'   `.|_   __  ||_   __  |          |  _   _  | .' ___  ||_   __ \
+#  /  .-.  \ | |_ \_|  | |_ \_|  ______  |_/ | | \_|/ .'   \_|  | |__) |
+#  | |   | | |  _| _   |  _| _  |______|     | |    | |         |  ___/
+#  \  `-'  /_| |__/ | _| |__/ |             _| |_   \ `.___.'\ _| |_
+#   `.___.'|________||________|            |_____|   `.____ .'|_____|
+#  by Jakob Groß
+
 import platform
 import socket
 import threading
@@ -62,11 +70,8 @@ class tcpServer:
     send = None
 
     # Pins
-    pin_input_1 = 13
-    pin_input_2 = 19
-    pin_relay_1 = 5
-    pin_relay_2 = 6
-    pin_relay_3 = 12
+    input_pins = [13, 19, 16, 26, 20, 21]
+    relay_pins = [5,6,12]
     pin_power_fail = 18
 
     # Handlers
@@ -74,7 +79,7 @@ class tcpServer:
     btnInput = []
 
     # Stati
-    inputs = [0, 0, 0]
+    inputs = [0, 0, 0, 0, 0, 0]
     relays = [0, 0, 0]
     message_counter = 0
     sendtimer = 3000  # send all xx ms
@@ -83,31 +88,34 @@ class tcpServer:
 
     def __init__(self, host="", port=1997):
         print("TCP Server instance created")
-
         self.HOST = host
         self.PORT = port
         # Create Fake pins if running on windows
         if platform.system() == "Windows":
             self.simulate_windows()
 
-        self.outRel.append(DigitalOutputDevice(self.pin_relay_1, active_high=True, initial_value=False))
-        self.outRel.append(DigitalOutputDevice(self.pin_relay_2, active_high=True, initial_value=False))
-        self.outRel.append(DigitalOutputDevice(self.pin_relay_3, active_high=True, initial_value=False))
+        # init relays
+        for pin in self.relay_pins:
+            self.outRel.append(DigitalOutputDevice(pin, active_high=True, initial_value=False))
 
-        self.btnInput.append(Button(self.pin_input_1, hold_time=self.polling_time, bounce_time=self.debounce_time))
-        self.btnInput.append(Button(self.pin_input_2, hold_time=self.polling_time, bounce_time=self.debounce_time))
-        self.btnInput[0].when_pressed = lambda: self.inc_input(0)
-        self.btnInput[1].when_pressed = lambda: self.inc_input(1)
+        # init inputs
+        for i in range(len(self.input_pins)):
+            tempbtn = Button(self.input_pins[i], hold_time=self.polling_time, bounce_time=self.debounce_time)
+            tempbtn.when_pressed = lambda x=i: self.inc_input(x)
+            self.btnInput.append(tempbtn)
+        print(self.btnInput)
 
     def inc_input(self, i):
         self.inputs[i] = (self.inputs[i] + 1) % 0xFFFF
 
     def reset_func(self):
-        self.inputs = [0, 0, 0]
-        self.relays = [0, 0, 0]
-        self.outRel[0].off()
-        self.outRel[1].off()
-        self.outRel[2].off()
+        for i in range(len(self.relays)):
+            self.relays[i] = 0
+            self.outRel[i].off()
+
+        for i in range(len(self.inputs)):
+            self.inputs[i] = 0
+
         self.message_counter = 0
         self.sendtimer = 3000
 
@@ -120,7 +128,7 @@ class tcpServer:
         if relay_goal_state == 1:
             self.outRel[relay_nr].on()
             self.relays[relay_nr] = 1
-        elif relay_goal_state == 1:
+        elif relay_goal_state == 0:
             self.outRel[relay_nr].off()
             self.relays[relay_nr] = 0
         return x
@@ -142,12 +150,15 @@ class tcpServer:
         if platform.system() == "Windows":
             def simulate():
                 print("Running on Windows - Mock Pins generated")
-                pin1 = Device.pin_factory.pin(self.pin_input_1)
+                pins = [Device.pin_factory.pin(x) for x in self.input_pins]
+                pins[0].drive_high()
                 while 1:
-                    pin1.drive_high()
-                    sleep(0.01)
-                    pin1.drive_low()
-                    sleep(0.99)
+                    for pin in pins[1:]:
+                        pin.drive_high()
+                        sleep(0.01)
+                        pin.drive_low()
+                        sleep(0.99)
+
             simulator = Thread(target=simulate)
             simulator.start()
 
@@ -171,9 +182,10 @@ class tcpServer:
             time.sleep(int(self.sendtimer/1000))
 
     def generate_status(self):
-        return f":{self.get_and_inc_message_counter()}" \
-               f"{{{self.inputs[0]},{self.inputs[1]},{self.inputs[2]}}}" \
-               f"{{{self.relays[0]},{self.relays[1]},{self.relays[2]}}}"
+        return f":{format(self.get_and_inc_message_counter(),'x')}" \
+               f"{{{','.join(format(i,'x') for i in self.inputs)}}}" \
+               f"{{{','.join(str(int(not i.value)) for i in self.btnInput)}}}" \
+               f"{{{','.join(str(i) for i in self.relays)}}}"
 
     def start(self):
         self.running = True
@@ -193,6 +205,7 @@ class tcpServer:
         self.socket.close()
 
     def handle_web_input(self,input_string):
+        input_string = input_string.lower();
         # RESET( Restart controller)
         if input_string.startswith("reset"):
             self.reset_func()
@@ -255,6 +268,5 @@ if __name__ == "__main__":
     server = tcpServer()
     server.start()
     atexit.register(server.stop)
-    while tcpServer.running:
+    while 1:
         time.sleep(1)
-    input("press Enter to exit")
