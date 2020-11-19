@@ -19,9 +19,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 import time
-
-import Adafruit_GPIO.SPI as SPI
-import Adafruit_SSD1306
+import digitalio
+import board
+import adafruit_ssd1306
 import urllib, json
 import socket
 
@@ -32,53 +32,26 @@ from PIL import ImageFont
 import subprocess
 
 # Raspberry Pi pin configuration:
-RST = None     # on the PiOLED this pin isnt used
-# Note the following are only used with SPI:
-DC = 23
-SPI_PORT = 0
-SPI_DEVICE = 0
+oled_reset = digitalio.DigitalInOut(board.D4)
 
-# Beaglebone Black pin configuration:
-# RST = 'P9_12'
-# Note the following are only used with SPI:
-# DC = 'P9_15'
-# SPI_PORT = 1
-# SPI_DEVICE = 0
+# Change these
+# to the right size for your display!
+WIDTH = 128
+HEIGHT = 64  # Change to 64 if needed
+BORDER = 5
+i2c = board.I2C()
+disp = adafruit_ssd1306.SSD1306_I2C(WIDTH, HEIGHT, i2c, addr=0x3C, reset=oled_reset)
 
-# 128x32 display with hardware I2C:
-#disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST)
-
-# 128x64 display with hardware I2C:
-disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST)
-
-# Note you can change the I2C address by passing an i2c_address parameter like:
-# disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST, i2c_address=0x3C)
-
-# Alternatively you can specify an explicit I2C bus number, for example
-# with the 128x32 display you would use:
-# disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST, i2c_bus=2)
-
-# 128x32 display with hardware SPI:
-# disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST, dc=DC, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=8000000))
-
-# 128x64 display with hardware SPI:
-# disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST, dc=DC, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=8000000))
-
-# Alternatively you can specify a software SPI implementation by providing
-# digital GPIO pin numbers for all the required display pins.  For example
-# on a Raspberry Pi with the 128x32 display you might use:
-# disp = Adafruit_SSD1306.SSD1306_128_32(rst=RST, dc=DC, sclk=18, din=25, cs=22)
 
 # Initialize library.
 
 url = "http://oeebox/fsm/monitor.dal"
 
 
-disp.begin()
+disp.fill(0)
 
 # Clear display.
-disp.clear()
-disp.display()
+disp.show()
 
 # Create blank image for drawing.
 # Make sure to create image with mode '1' for 1-bit color.
@@ -104,7 +77,7 @@ x = 2
 
 # Load default font.
 font = ImageFont.load_default()
-fontC = ImageFont.truetype("consolas.ttf", 38)
+fontC = ImageFont.truetype(r"/usr/share/fonts/truetype/FIRACODE.TTF", 30)
 
 # global variables
 dualMode = False
@@ -171,45 +144,45 @@ def printdisplay():
 
         # 1 Line, 3 Chars mode
         if modes[i] == 10:
-            fontC = ImageFont.truetype("consolas.ttf", 80)
+            fontC = ImageFont.truetype(r"/usr/share/fonts/truetype/FIRACODE.TTF", 60)
 
             draw.text((x + offset, top), lines[i][0], font=fontC, fill=255)
 
         # 1 Line, 4 Chars mode
         if modes[i] == 11:
-            fontC = ImageFont.truetype("consolas.ttf", 38)
+            fontC = ImageFont.truetype(r"/usr/share/fonts/truetype/FIRACODE.TTF", 30)
             draw.rectangle((0, 0, width - 1, height - 1), outline=1, fill=0)
             draw.text((x + offset + 20, top + 20), lines[i][0], font=fontC, fill=255)
 
         # 2 Line, 6 Chars
         if modes[i] == 20:
-            fontC = ImageFont.truetype("consolas.ttf", 38)
+            fontC = ImageFont.truetype(r"/usr/share/fonts/truetype/FIRACODE.TTF", 30)
             draw.text((x + offset, top), lines[i][0], font=fontC, fill=255)
             draw.text((x + offset, top + 35), lines[i][1], font=fontC, fill=255)
 
         # 2 Line, 9 Chars
         if modes[i] == 21:
-            fontC = ImageFont.truetype("consolas.ttf", 25)
+            fontC = ImageFont.truetype(r"/usr/share/fonts/truetype/FIRACODE.TTF", 22)
             draw.text((x + offset, top + 5), lines[i][0], font=fontC, fill=255)
             draw.text((x + offset, top + 40), lines[i][1], font=fontC, fill=255)
 
         # 3 Line, 9 Chars
         if modes[i] == 30:
-            fontC = ImageFont.truetype("consolas.ttf", 25)
+            fontC = ImageFont.truetype(r"/usr/share/fonts/truetype/FIRACODE.TTF", 20)
             draw.text((x + offset, top + 2), lines[i][0], font=fontC, fill=255)
             draw.text((x + offset, top + 24), lines[i][1], font=fontC, fill=255)
             draw.text((x + offset, top + 46), lines[i][2], font=fontC, fill=255)
 
         # 3 Line, 12 Chars
         if modes[i] == 31:
-            fontC = ImageFont.truetype("consolas.ttf", 18)
+            fontC = ImageFont.truetype(r"/usr/share/fonts/truetype/FIRACODE.TTF", 16)
             draw.text((x + offset, top + 2), lines[i][0], font=fontC, fill=255)
             draw.text((x + offset, top + 27), lines[i][1], font=fontC, fill=255)
             draw.text((x + offset, top + 52), lines[i][2], font=fontC, fill=255)
 
         # 4 Line, 14 Chars
         if modes[i] == 40:
-            fontC = ImageFont.truetype("consolas.ttf", 16)
+            fontC = ImageFont.truetype(r"/usr/share/fonts/truetype/FIRACODE.TTF", 14)
             draw.text((x + offset, top + 1), lines[i][0], font=fontC, fill=255)
             draw.text((x + offset, top + 17), lines[i][1], font=fontC, fill=255)
             draw.text((x + offset, top + 34), lines[i][2], font=fontC, fill=255)
@@ -217,7 +190,7 @@ def printdisplay():
 
         # 6 Line
         if modes[i] == 60:
-            fontC = ImageFont.truetype("consolas.ttf", 10)
+            fontC = ImageFont.truetype(r"/usr/share/fonts/truetype/FIRACODE.TTF", 8)
             draw.text((x + offset, top + 3), lines[i][0], font=fontC, fill=255)
             draw.text((x + offset, top + 13), lines[i][1], font=fontC, fill=255)
             draw.text((x + offset, top + 23), lines[i][2], font=fontC, fill=255)
@@ -231,11 +204,11 @@ def printdisplay():
 
         # Display image.
         disp.image(image)
-        disp.display()
+        disp.show()
 
 
 # TCP socket (server)
-HOST = socket.gethostname()  # Standard loopback interface address (localhost)
+HOST = "localhost"  # Standard loopback interface address (localhost)
 PORT = 2961        # Port to listen on (non-privileged ports are > 1023)
 msg = ' '
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
