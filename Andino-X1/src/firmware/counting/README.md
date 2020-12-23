@@ -1,10 +1,6 @@
-Standard Andino X1 Firmware
-==========
+# Standard Andino X1 Firmware
 
-Overview
-====
-
-This is the default firmware for the Andino X1. For more information, visit [andino.systems](https://andino.systems/andino-x1/firmware/counting)
+This is the default firmware for the Andino X1. **For full documentation, visit [andino.systems](https://andino.systems/andino-x1/firmware/counting)**
 
 ## Changelog
 
@@ -29,47 +25,23 @@ POLL | Cycle in ms | Sets the sampling cycle of the digital inputs [in ms] | POL
 SKIP | Number of polls | Skip n Scans after pulse reconized | 0
 EDGE | HL(0) LH(1) | Count on edge HL or LH | EDGE
 SEND | Cycle in ms | The counter will send all nnn milliseconds | SEND 5000
+SENDT | Cycle in ms | The counter will poll and send the busses every nnnn milliseconds | SENDT 8000
 CHNG | Send on Change | Send if any Pin changes. Carefull if many changes | CHNG 1
 CNTR | Send Counter | Send counter+states(1) or only states(0) (default 1) | CNTR 0
 DEBO | Number of polls | Sets the debounce count. The signal has to be stable for nn polls | DEBO 100
 POWR | state (0 or 1)| Power-Out Relay is switched on or off | REL1 1
+REL? | on-off  (0 or 1)| Send the current state of the Relays
 REL1 | state (0 or 1)| Relay 1 is switched on or off | REL1 1
 REL2 | state (0 or 1)| Relay 2 is switched on or off | REL2 1
 REL3 | state (0 or 1)| Relay 3 is switched on or off | REL3 1
+REL4 | state (0 or 1)| Relay 4 is switched on or off | REL4 1
 RPU1 | pulse in sec | Pulse the Relay 1 for nns seconds | RPU1 2
 RPU2 | pulse in sec | Pulse the Relay 2 for nns seconds | RPU2 2
-
-### Messages from the Controller
-
-:Message-ID{counter1,counter2,..}{state1,state2}
-
-The Message starts with a ':'. After that follows a Message-ID. This is a modulo HEX Counter from 0..FFFF.    
-Then within a '{'  '}' the counter follows. The number of counter depends on the Hardware shields.   
-The Counter are HEX encoded and runs from 0 to FFFF (modulo).  
-Then again within a '{'  '}' the current state of the inputs follows. 0-off, 1-on.  
-The number depends on the Hardware shields.
-The Message ends with a CR / LF [0x0d + 0x0a]
-
-Example   
-:0040{0002,0000,000B}{0,0,0}  
-:0041{0002,0000,000B}{0,0,0}  
-:0042{0004,0000,000C}{0,0,0}  
-:0043{0004,0000,000C}{0,0,0}  
-:0044{0008,0000,000F}{0,0,1}  
-:0045{0008,0000,000F}{0,0,1}  
-:0046{000A,0000,0000}{0,0,1}  
-:0047{000C,0000,0000}{1,0,0}  
-:0048{0010,0000,0000}{0,0,0}  
-
+TBUS | 1=one bus, 2=2 busses | Sets the number of temperature sensor busses to 1 or 2
+ADDRT | 1=bus1, 2=bus2 | displays the addresses of all sensors connected to the specified bus
 
 Author
 -----
 
-* 2017 by [AndinoSystems][2]
+* 2020 by AndinoSystems
 * [Contact us by email](mailto:info@andino.systems)
-
-[1]:https://andino.systems/andino-x1/
-[2]:https://github.com/andino-systems/Andino-X1
-[3]:https://code.google.com/archive/p/arduino-timerone/downloads
-[4]:https://github.com/andino-systems/Andino-X1/tree/master/doc/3DI
-[5]:https://github.com/andino-systems/Andino-X1/tree/master/doc/1DI2DO
