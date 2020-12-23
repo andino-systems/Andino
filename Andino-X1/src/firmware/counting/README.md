@@ -1,22 +1,21 @@
 Standard Andino X1 Firmware
 ==========
 
-[Andino X1][1], a base board that allows the raspberry pi to be used in an industrial environment.
-
 Overview
 ====
 
-This example counts impulses at the digital inputs. 
-Count stops are cyclically sent to the Raspberry. 
-The digital inputs are additionally de-bounced. 
-On the other hand, the relays can be switched or pulsed. The settings of the firmware are changed via commands and are stored in the eeprom.
-This Version consider the extension boards [3DI][4] and [1DI2DO][5] (Command HARD).
-  
-The Communication runs with **38400 Baud**.
+This is the default firmware for the Andino X1. For more information, visit [andino.systems](https://andino.systems/andino-x1/firmware/counting)
 
-This Sample needs the [TimerOne][3] library.
+## Changelog
 
-### Interface, Commands
+### Version 005
+* Added support for relay status display in the periodic update messages
+
+### Version 006
+* Added support for the DS18B20 temperature sensor on two busses
+* Fixed an issue which caused the controller not to come back online after performing the RESET command on certain hardware configurations
+
+## Interface, Commands
 
 All commands or messages are sent and received via  /dev/ttyS0.
 Every command has to be terminated by CR or LF. Message ends with CR and LF.
@@ -61,12 +60,6 @@ Example
 :0046{000A,0000,0000}{0,0,1}  
 :0047{000C,0000,0000}{1,0,0}  
 :0048{0010,0000,0000}{0,0,0}  
-
-
-Download
------
-
-Please see in the GIT Content the current INO File: [Version002.ino](Version002.ino)  
 
 
 Author
