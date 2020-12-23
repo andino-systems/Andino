@@ -242,7 +242,7 @@ void printAddress(DeviceAddress deviceAddress, DallasTemperature sens, int busId
   {
     Serial.print("{");
     Serial.print(i);
-    Serial.print(":");
+    Serial.print("*");
     sens.getAddress(Thermometer, i);
     for (uint8_t i = 0; i < 8; i++)
     {
