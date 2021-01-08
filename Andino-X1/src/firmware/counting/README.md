@@ -4,12 +4,21 @@ This is the default firmware for the Andino X1. **For full documentation, visit 
 
 ## Changelog
 
-### Version 005
-* Added support for relay status display in the periodic update messages
+### Version 007 (210107)
+
+* Inputs that are used for temperature sensors will no longer be printed out in the periodic input messages when HARD 4 is selected.
+* Fixed issue where the Temperature sensors would not be displayed correctly immediately after startup
+* Temporarily disabled RESET command since a bug in the Arduino bootloader caused the board to enter a reboot loop. The command will be re-enabled in a future firmware version.
+
 
 ### Version 006
+
 * Added support for the DS18B20 temperature sensor on two busses
 * Fixed an issue which caused the controller not to come back online after performing the RESET command on certain hardware configurations
+
+### Version 005
+
+* Added support for relay status display in the periodic update messages
 
 ## Interface, Commands
 
@@ -18,9 +27,9 @@ Every command has to be terminated by CR or LF. Message ends with CR and LF.
 ### Commands to the Controller
 **Command** | Arguments | Action | Example 
 --- | --- | --- | ---
-RESET | none | Restart the Controller | RESET
+RESET | none | Restart the Controller (disabled since version 210107) | RESET
 INFO | none| Prints the current settings | INFO
-HARD | 0=noShield, 1=1DI2DO, 2=3DI, 3=5DI | Set the Hardware configuration | 0 - none
+HARD | 0=noShield, 1=1DI2DO, 2=3DI, 3=5DI, 4=DS18B20 | Set the Hardware configuration | 0 - none
 POLL | Cycle in ms | Sets the sampling cycle of the digital inputs [in ms] | POLL 1000
 SKIP | Number of polls | Skip n Scans after pulse reconized | 0
 EDGE | HL(0) LH(1) | Count on edge HL or LH | EDGE
