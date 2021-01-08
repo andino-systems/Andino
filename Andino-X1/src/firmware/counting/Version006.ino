@@ -60,7 +60,7 @@
 // :0040{0002,0000,000B}{0,0,0}{0,0}
 // :0041{0002,0000,000B}{0,0,0}{0,0}
 // :0042{0004,0000,000C}{0,0,0}{0,0}
-#define VERSION 201106
+#define VERSION 201223
 // History:
 // 201106: New Option: send relay state
 // 200929: void setup_in_out() correction for 5DI
