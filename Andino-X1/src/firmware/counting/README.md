@@ -11,12 +11,12 @@ This is the default firmware for the Andino X1. **For full documentation, visit 
 * Temporarily disabled RESET command since a bug in the Arduino bootloader caused the board to enter a reboot loop. The command will be re-enabled in a future firmware version.
 
 
-### Version 006
+### Version 006 (201223)
 
 * Added support for the DS18B20 temperature sensor on two busses
 * Fixed an issue which caused the controller not to come back online after performing the RESET command on certain hardware configurations
 
-### Version 005
+### Version 005 (201106)
 
 * Added support for relay status display in the periodic update messages
 
