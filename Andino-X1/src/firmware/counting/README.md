@@ -37,8 +37,8 @@ REL3 | state (0 or 1)| Relay 3 is switched on or off | REL3 1
 REL4 | state (0 or 1)| Relay 4 is switched on or off | REL4 1
 RPU1 | pulse in sec | Pulse the Relay 1 for nns seconds | RPU1 2
 RPU2 | pulse in sec | Pulse the Relay 2 for nns seconds | RPU2 2
-TBUS | 1=one bus, 2=2 busses | Sets the number of temperature sensor busses to 1 or 2
-ADDRT | 1=bus1, 2=bus2 | displays the addresses of all sensors connected to the specified bus
+TBUS | 1=one bus, 2=2 busses | Sets the number of temperature sensor busses to 1 or 2 | TBUS 2
+ADDRT | 1=bus1, 2=bus2 | displays the addresses of all sensors connected to the specified bus | ADDRT 1
 
 Author
 -----
