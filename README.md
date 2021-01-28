@@ -1,5 +1,5 @@
 # Andino
-**Industrial PC for installation in the control cabinet, based on the Raspberry Pi**
+**Industrial PCs for installation in the control cabinet, based on the Raspberry Pi**
 
 ---
 
@@ -53,5 +53,5 @@ The Andino Terminal is a versatile terminal powered by the Raspberry Pi 3B+ or P
 
 ### Author
 
-* 2020 by Andino Systems
+* 2021 by Andino Systems
 * [Contact us by email](mailto:info@andino.systems)
