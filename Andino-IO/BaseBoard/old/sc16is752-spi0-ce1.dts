@@ -1,0 +1,41 @@
+// Definitions for SC16IS752 UART on spi0.1
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "brcm,bcm2835", "brcm,bcm2836", "brcm,bcm2708", "brcm,bcm2709";
+
+    fragment@0 {
+        target = <&spi0>;
+        __overlay__ {
+             status = "okay";
+             spidev@1{
+                 status = "disabled";
+             };
+        };
+    };
+
+    fragment@1 {
+       target = <&spi0>;
+       __overlay__ {
+          #address-cells = <1>;
+          #size-cells = <0>;
+          status = "okay";
+
+          sc16is752: sc16is752@1 {
+             compatible = "nxp,sc16is752";
+             reg = <1>; /* CE1 */
+             spi-max-frequency = <4000000>;
+             interrupt-parent = <&gpio>;
+             interrupts = <24 0x2>; /* gpio 21, falling edge */
+             clocks = <&klok>;
+
+             klok: klok {
+                compatible = "fixed-clock";
+                #clock-cells = <0>;
+                clock-frequency = <11059200>;
+             };
+          };
+       };
+    };
+};
