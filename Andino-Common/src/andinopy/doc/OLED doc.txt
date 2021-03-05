@@ -1,0 +1,9 @@
+OLED Modes
+
+Mode ->   XX [YY]
+X    ->   10|11|20|21|30|31|40|60
+Y    ->   10|11|20|21|30|31|40|60|0
+
+Erste Ziffer von X & Y gibt Anzahl der Zeilen in der jeweiligen Spalte an
+Zweite Ziffer von X & Y gibt Anzahl der Zeichen/Schriftgröße an 
+Wenn Y=0 -> nur eine Spalte

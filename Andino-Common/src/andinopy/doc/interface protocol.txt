@@ -1,0 +1,50 @@
+# Kommandos in Richtung Interface
+
+SYS -> Systeminformationen
+
+## OLED
+# OLED MODE col1 [col2]
+# OLED INFO
+# OLED <{zeile1}{zeile2}...{zeile6}>[<{zeile1}{zeile2}...{zeile6}>] ->Text setzen optional beide columns
+
+## TEMP
+SENDT [0| ms > 1000] -> Temperatur Meldezyklus
+ADDRT [1|2] -> Temepraturmesser Adressen
+TBUS [1|2] -> Bus anzahl setzen
+TEMP        -> poll temperature once
+
+## X1 / IO
+übernehemen
+
+## RFID KEY CONTROLLER
+BUZZ ms -> BEEEEEEp for ms
+
+## Nextion Display
+DISP PAGE <page> -> Display page setzen
+DISP TXT <obj> -> Text setzen
+DISP ATTR <obj> <attribute> <value> -> Object Atribut setzen
+DISP RAW <bytes in hex> -> send raw bytes to the display
+
+## Nachrichten des Interface
+#message ->			: counter info
+#counter ->			hex sendenummer %FFFF (0000...FFFF)
+#info -> 			standart_x1 | temp | display | funktionstaste | nummerische taste | rfid
+#temp -> 			@T{busNr}{temp1,temp2}
+#display -> 			@D{bytes}
+#funktionstaste -> 	@F{taste}
+#nummerische taste ->@N{taste}
+#rfid	-> 			@R{hex rfid string}
+#
+#
+#:0000{     X1 IO Message
+#:0000@T{}  @ ex
+
+
+<option value="10">1 line, 3 chars</option>
+<option value="11">1 line, 4 chars</option>
+<option value="20">2 lines, 6 chars</option>
+<option value="21">2 lines, 9 chars</option>
+<option value="30">3 lines, 9 chars</option>
+<option value="31">3 lines, 12 chars</option>
+<option value="40">4 lines, 14 chars</option>
+<option value="60">6 lines, 21 chars</option>
