@@ -1,76 +1,82 @@
-#!/bin/sh
+#!/bin/bash
 
-echo -n "Andino X1 setup script"
-
-
-# update & upgrade
-echo -n "[X1 Setup] Updating & upgrading packages..."
+printf "#### Andino X1 setup script ####\n"
+printf "Starting in:\n"
+printf "3..."
+sleep 1
+printf "2..."
+sleep 1
+printf "1..."
 sleep 1
 
-echo -n ""
+# update & upgrade
+printf "[X1 Setup] Updating & upgrading packages...\n"
+sleep 1
+
+printf "\n"
 sudo apt-get update
 sudo apt-get upgrade -y
 
 # install software
-echo -n "[X1 Setup] Installing software..."
+printf "[X1 Setup] Installing software...\n"
 sleep 1
 sudo apt-get install -y minicom git python python-pip python3 python3-pip
 ### i2c-tools is installed in RTC section
 
 # edit system files
-echo -n "[X1 Setup] Setting system settings..."
+printf "[X1 Setup] Setting system settings...\n"
 sleep 1
 
 ## edit /boot/config.txt
-echo -n "Enabling UART in /boot/config.txt..."
+printf "Enabling UART in /boot/config.txt..."
 
 echo "" >> /boot/config.txt
-echo "enable_uart=1" >> /boot/config.txt
-echo "dtoverlay=disable-bt" >> /boot/config.txt
-echo "dtoverlay=miniuart-bt" >> /boot/config.txt
+sudo echo "enable_uart=1" >> /boot/config.txt
+sudo echo "dtoverlay=disable-bt" >> /boot/config.txt
+sudo echo "dtoverlay=miniuart-bt" >> /boot/config.txt
 
-echo "done."
+printf "done.\n"
 
 ## edit /boot/cmdline.txt
 
-echo -n "Disabling console on /dev/serial0..."
+printf "Disabling console on /dev/serial0..."
 
 sudo cut -d ' ' -f 3- < /boot/cmdline.txt >> /boot/cmdline-new.txt
 sudo rm /boot/cmdline.txt
 sudo mv /boot/cmdline-new.txt /boot/cmdline.txt
 
-echo "done."
+printf "done.\n"
 
 # configure RTC
-echo -n "[X1 Setup] Setting up RTC..."
+printf "[X1 Setup] Setting up RTC...\n"
 sleep 1
 
-echo -n "Enabling rtc in /boot/config.txt..."
+printf "Enabling rtc in /boot/config.txt..."
 
 sudo echo "" >> /boot/config.txt
 sudo echo "dtparam=i2c_arm=on" >> /boot/config.txt
 sudo echo "dtoverlay=i2c-rtc,ds3231" >> /boot/config.txt
 
-echo "done."
+printf "done.\n"
 
-echo -n "Installing necessary packages..."
+printf "Installing necessary packages...\n"
 sudo apt-get install -y i2c-tools
 sudo apt-get purge -y fake-hwclock
 sudo apt-get remove fake-hwclock -y 
 
-echo -n "Finishing RTC setup..."
+printf "Finishing RTC setup...\n"
 sudo dpkg --purge fake-hwclock 
 sudo rm -f /etc/adjtime.
 sudo cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 sudo ln -s /home/pi/bin/ntp2hwclock.sh /etc/cron.hourly/ntp2hwclock
 
-echo -n "Downloading NTP script..."
+printf "Downloading NTP script...\n"
 mkdir /home/pi/bin/
 wget 'https://raw.githubusercontent.com/andino-systems/Andino/master/Andino-Common/src/rtc/ntp2hwclock.sh' -O /home/pi/bin/ntp2hwclock.sh
 
 # install log2ram
 
-echo -n "[X1 Setup] Setting up Log2Ram..."
+printf "[X1 Setup] Setting up Log2Ram...\n"
 sleep 1
 
 cd /home/pi/
@@ -81,19 +87,19 @@ sudo ./log2ram/install.sh
 
 # install node.js & node-red
 
-echo -n "[X1 Setup] Setting up NodeJS & NodeRed..."
+printf "[X1 Setup] Setting up NodeJS & NodeRed...\n"
 sleep 1
 
-echo -n "Starting installation. PLEASE CONFIRM WITH 'y' IF PROMPTED. "
+printf "Starting installation. PLEASE CONFIRM WITH 'y' IF PROMPTED.\n"
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered) --confirm-install --confirm-pi
 
-echo -n "Enabling Node-Red in systemctl..."
+printf "Enabling Node-Red in systemctl..."
 sudo systemctl enable nodered.service
-echo "done"
+printf "done.\n"
 
-echo -n "The Node-Red web UI is currently unsecured! For documentation on how to enable username/password authentication, please refer to https://andino.systems/programming/nodered"
+printf "The Node-Red web UI is currently unsecured! For documentation on how to enable username/password authentication, please refer to https://andino.systems/programming/nodered. \n"
 
-echo -n "Installing custom NodeRed nodes..."
+printf "Installing custom NodeRed nodes...\n"
 
 cd /home/pi/.node-red/
 npm install node-red-contrib-andinox1
@@ -103,7 +109,7 @@ cd ~
 
 # install andinopy
 
-echo -n "[X1 Setup] Setting up Andino Python Library..."
+printf "[X1 Setup] Setting up Andino Python Library...\n"
 sleep 1
 
 ## download and unzip
@@ -120,5 +126,5 @@ sudo pip3 install dist/package.whl
 
 # finish and remove script
 
-echo -n "[X1 Setup] Setup complete! Please reboot to finish."
+printf "[X1 Setup] Setup complete! Please reboot to finish.\n"
 rm /home/pi/x1-setup.sh
