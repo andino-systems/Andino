@@ -1,7 +1,13 @@
 #!/bin/bash
 
 printf "#### Andino X1 setup script ####\n"
-printf "Starting in:\n"
+printf "!This script needs to be executed as user pi! You are currently: "
+whoami
+printf "\nStarting installation in:\n"
+printf "5..."
+sleep 1
+printf "4..."
+sleep 1
 printf "3..."
 sleep 1
 printf "2..."
@@ -30,7 +36,7 @@ printf "[X1 Setup] Setting system settings...\n"
 sleep 2
 
 ## edit /boot/config.txt
-printf "Enabling UART in /boot/config.txt..."
+printf "Enabling UART in /boot/config.txt...\n"
 
 echo "" | sudo tee -a /boot/config.txt
 echo "enable_uart=1" | sudo tee -a /boot/config.txt
@@ -42,20 +48,17 @@ printf "...done\n"
 
 ## edit /boot/cmdline.txt
 
-printf "Disabling console on /dev/serial0..."
+printf "Disabling console on /dev/serial0...\n"
 
-touch tmp/cmdline.txt
-sudo cut -d ' ' -f 3- < /boot/cmdline.txt >> tmp/cmdline.txt
-sudo rm /boot/cmdline.txt
-sudo mv tmp/cmdline-new.txt /boot/cmdline.txt
+cut -d ' ' -f 3- < /boot/cmdline.txt | sudo tee /boot/cmdline.txt
 
-printf "done.\n"
+printf "...done.\n"
 
 # configure RTC
 printf "[X1 Setup] Setting up RTC...\n"
 sleep 2
 
-printf "Enabling rtc in /boot/config.txt..."
+printf "Enabling rtc in /boot/config.txt...\n"
 
 echo "" | sudo tee -a /boot/config.txt
 echo "dtparam=i2c_arm=on" | sudo tee -a /boot/config.txt
@@ -88,7 +91,6 @@ git clone https://github.com/azlux/log2ram.git
 chmod +x log2ram/install.sh
 sudo ./log2ram/install.sh
 
-
 # install node.js & node-red
 
 printf "[X1 Setup] Setting up NodeJS & NodeRed...\n"
@@ -97,9 +99,9 @@ sleep 2
 printf "Starting installation. PLEASE CONFIRM WITH 'y' IF PROMPTED.\n"
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered) --confirm-install --confirm-pi
 
-printf "Enabling Node-Red in systemctl..."
+printf "Enabling Node-Red in systemctl...\n"
 sudo systemctl enable nodered.service
-printf "done.\n"
+printf "...done.\n"
 
 printf "The Node-Red web UI is currently unsecured! For documentation on how to enable username/password authentication, please refer to https://andino.systems/programming/nodered. \n"
 
@@ -110,6 +112,8 @@ npm install node-red-contrib-andinox1
 npm install node-red-contrib-andino-sms
 npm install node-red-contrib-andinooled
 cd ~
+
+printf "...done.\n"
 
 # install andinopy
 
