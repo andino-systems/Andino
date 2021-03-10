@@ -28,7 +28,7 @@ sudo apt-get upgrade -y
 # install software
 printf "[X1 Setup] Installing software...\n"
 sleep 2
-sudo apt-get install -y minicom git python python-pip python3 python3-pip
+sudo apt-get install -y minicom screen elinks git python python-pip python3 python3-pip
 ### i2c-tools is installed in RTC section
 
 # edit system files
@@ -112,6 +112,16 @@ npm install node-red-contrib-andinox1
 npm install node-red-contrib-andino-sms
 npm install node-red-contrib-andinooled
 cd ~
+
+printf "...done.\n"
+
+# RS232
+
+printf "Setting up RS232...\n"
+
+echo "" | sudo tee -a /boot/config.txt
+echo "dtoverlay=spi0-2cs,cs0_pin=8,cs1_pin=12,cs0_spidev=off,cs_1_spidev=off" | sudo tee -a /boot/config.txt
+echo "dtoverlay=sc16is752-spi0,int_pin=7,xtal=11059200" | sudo tee -a /boot/config.txt
 
 printf "...done.\n"
 
