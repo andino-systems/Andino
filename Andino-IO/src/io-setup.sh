@@ -200,7 +200,7 @@ sudo python3 setup.py bdist_wheel
 sudo pip3 install dist/andinopy-0.2-py3-none-any.whl
 
 # finish and remove script
-printf "Remving tmp files...\n"
+printf "Removing tmp files...\n"
 rm -r /home/pi/tmp
 rm /home/pi/io-setup.sh
 
