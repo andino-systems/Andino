@@ -15,25 +15,25 @@ sleep 1
 printf "1...\n"
 sleep 1
 
-cd /home/pi
+cd /home/pi || exit 2
 mkdir tmp
 
 # update & upgrade
 printf "[X1 Setup] Updating & upgrading packages...\n"
-sleep 2
+sleep 1
 
 sudo apt-get update
 sudo apt-get upgrade -y
 
 # install software
 printf "[X1 Setup] Installing software...\n"
-sleep 2
+sleep 1
 sudo apt-get install -y minicom screen elinks git python python-pip python3 python3-pip
 ### i2c-tools is installed in RTC section
 
 # edit system files
 printf "[X1 Setup] Setting system settings...\n"
-sleep 2
+sleep 1
 
 ## edit /boot/config.txt
 printf "Enabling UART in /boot/config.txt...\n"
@@ -56,7 +56,7 @@ printf "...done.\n"
 
 # configure RTC
 printf "[X1 Setup] Setting up RTC...\n"
-sleep 2
+sleep 1
 
 printf "Enabling rtc in /boot/config.txt...\n"
 
@@ -84,9 +84,9 @@ wget 'https://raw.githubusercontent.com/andino-systems/Andino/master/Andino-Comm
 # install log2ram
 
 printf "[X1 Setup] Setting up Log2Ram...\n"
-sleep 2
+sleep 1
 
-cd /home/pi/
+cd /home/pi/ || exit 2
 git clone https://github.com/azlux/log2ram.git
 chmod +x log2ram/install.sh
 sudo ./log2ram/install.sh
@@ -94,7 +94,7 @@ sudo ./log2ram/install.sh
 # install node.js & node-red
 
 printf "[X1 Setup] Setting up NodeJS & NodeRed...\n"
-sleep 2
+sleep 1
 
 printf "Starting installation. PLEASE CONFIRM WITH 'y' IF PROMPTED.\n"
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered) --confirm-install --confirm-pi
@@ -107,11 +107,11 @@ printf "The Node-Red web UI is currently unsecured! For documentation on how to 
 
 printf "Installing custom NodeRed nodes...\n"
 
-cd /home/pi/.node-red/
+cd /home/pi/.node-red/ || exit 2
 npm install node-red-contrib-andinox1
 npm install node-red-contrib-andino-sms
 npm install node-red-contrib-andinooled
-cd ~
+cd ~ || exit 2
 
 printf "...done.\n"
 
@@ -128,13 +128,13 @@ printf "...done.\n"
 # install andinopy
 
 printf "[X1 Setup] Setting up Andino Python Library...\n"
-sleep 2
+sleep 1
 
 ## download and unzip
 sudo pip3 install wheel
 mkdir andinopy
 wget 'https://raw.githubusercontent.com/andino-systems/Andino/master/Andino-Common/src/andinopy/andinopy.zip' -O ./andinopy/andinopy.zip
-cd andinopy
+cd andinopy || exit 2
 unzip andinopy.zip
 rm andinopy.zip
 
