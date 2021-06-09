@@ -5,10 +5,10 @@
 #   /_/   \_\_| |_|\__,_|_|_| |_|\___/| .__/ \__, |
 #                                     |_|    |___/
 # by Jakob Groß
-import andinopy.io_x1_emulator
+import andinopy.tcp.io_x1_emulator
 from andinopy.interfaces.andino_hardware_interface import andino_hardware_interface
 from andinopy.interfaces.andino_temp_interface import andino_temp_interface
-from andinopy import simpletcp
+from andinopy.tcp import simpletcp
 from typing import Dict
 
 
@@ -37,9 +37,9 @@ class andino_tcp:
         self.tcpserver = simpletcp.tcp_server(port=self.port, on_message=self._i_handle_tcp_input)
 
         if hardware == "io":
-            self.x1_instance: andino_hardware_interface = andinopy.io_x1_emulator.x1_emulator(self._o_broadcast)
+            self.x1_instance: andino_hardware_interface = andinopy.tcp.io_x1_emulator.x1_emulator(self._o_broadcast)
         elif hardware == "x1":
-            from andinopy import andinox1
+            from andinopy.base_devices import andinox1
             self.x1_instance: andino_hardware_interface = andinox1.andino_x1(self._o_broadcast)
         else:
             raise AttributeError("hardware must be 'x1' or 'io")
@@ -103,19 +103,17 @@ class andino_tcp:
     # region custom initializers
 
     def _init_oled(self):
-        from andinopy import andino_io_oled
+        from andinopy.base_devices import andino_io_oled
         self.oled_instance = andino_io_oled.andino_io_oled()
 
     def _init_key_rfid(self):
-        from andinopy import terminal
-        self.key_rfid_instance = terminal.rfid_keyboard()
+        self.key_rfid_instance = andinopy.base_devices.rfid_keyboard_interface.rfid_keyboard_interface()
         self.key_rfid_instance.on_rfid_string = self._o_on_rfid
         self.key_rfid_instance.on_function_button = self._o_on_function_button
         self.key_rfid_instance.on_keyboard_button = self._o_on_number_button
 
     def _init_display(self):
-        from andinopy import terminal
-        self.display_instance = terminal.display()
+        self.display_instance = andinopy.base_devices.nextion_display.display()
         self.display_instance.on_display_touch = self._o_on_display_touch
         self.display_instance.on_display_string = self._o_on_display_string
 

@@ -1,7 +1,7 @@
 import time
 from threading import Timer
 import logging
-from andinopy import terminal
+from andinopy.base_devices import terminal
 
 
 class door_open:

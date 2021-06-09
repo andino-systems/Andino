@@ -9,7 +9,6 @@ import time
 import serial
 import sys
 import os
-import re
 
 e = bytearray([0xFF, 0xFF, 0xFF])
 
@@ -29,14 +28,14 @@ def get_baud_rate(dev_port: serial.Serial, diagnostics: bool = False):
         r = dev_port.read(128)[:-3]
         if 'comok' in str(r):
             diag_print(f"Connected with {baud_rate} baud")
-            status, unknown1, model, firmware, mcucode, nextion_serial, nextion_flashSize = str(r).strip("\xff").split(
+            status, unknown1, model, firmware, mcucode, nextion_serial, nextion_flash_size = str(r).strip("\xff").split(
                 ',')
             if status.split(' ')[1] == "1":
                 diag_print('Touchscreen: enabled')
             else:
                 diag_print('Touchscreen: disabled')
             diag_print(
-                f"Model:{model}\nFirmware:{firmware}\nMCU-Code:{mcucode}\nSerial:{nextion_serial}\nFlashSize:{nextion_flashSize}")
+                f"Model:{model}\nFirmware:{firmware}\nMCU-Code:{mcucode}\nSerial:{nextion_serial}\nFlashSize:{nextion_flash_size}")
             return baud_rate
     return False
 

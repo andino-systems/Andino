@@ -99,6 +99,7 @@ class andino_io_oled:
         else:
             my_image.show()
 
+
 if __name__ == "__main__":
     display = andino_io_oled()
     display.display_text()

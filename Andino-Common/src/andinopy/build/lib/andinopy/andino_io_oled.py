@@ -17,6 +17,10 @@ from PIL import ImageDraw
 
 class andino_io_oled:
     def __init__(self):
+        """
+        Initializes a new OLED instance
+        The Images will be shown on windows but no i2c devices will be opened
+        """
         self.WIDTH = 128
         self.HEIGHT = 64
         if sys.platform == "linux":
@@ -47,13 +51,33 @@ class andino_io_oled:
         }
 
     def set_mode(self, col1: str, col2: str = None):
+        """
+        When using two columns beware only half the chars are avaiable
+        "10":  1 Line, 3 Chars mode
+        "11":  1 Line, 4 Chars mode
+        "20":  2 Line, 6 Chars
+        "21":  2 Line, 9 Chars
+        "30":  3 Line, 9 Chars
+        "31":  3 Line, 12 Chars
+        "40":  4 Line, 14 Chars
+        "60":  6 Line
+        :param col1: see above
+        :param col2: see above
+        """
         self.config = (col1, col2)
 
     def set_text(self, text: [[str]]):
+        """
+        Set TExt on the display
+        :param text: [["col1 row1","col1 row2"],["col2 row2"...]]
+        """
         self.text = text
         self.display_text()
 
     def display_text(self):
+        """
+        Displays the text set in self.text
+        """
         if sys.platform == "linux":
             self.display.fill(0)
             self.display.show()
@@ -74,6 +98,7 @@ class andino_io_oled:
             self.display.show()
         else:
             my_image.show()
+
 
 if __name__ == "__main__":
     display = andino_io_oled()
