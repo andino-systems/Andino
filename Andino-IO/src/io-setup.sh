@@ -197,13 +197,15 @@ rm andinopy.zip
 ## setup
 printf "Installing andinopy library...\n"
 sudo python3 setup.py bdist_wheel
-sudo pip3 install dist/andinopy-0.1-py3-none-any.whl
+sudo pip3 install dist/andinopy-0.2-py3-none-any.whl
 
 # finish and remove script
+printf "Remving tmp files...\n"
+rm -r /home/pi/tmp
+rm /home/pi/io-setup.sh
+
 
 printf "[IO Setup] Setup complete! Please reboot to finish.\n"
-rmdir /home/pi/tmp
-rm /home/pi/io-setup.sh
 
 
 
