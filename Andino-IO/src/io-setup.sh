@@ -42,7 +42,7 @@ printf "[IO Setup] Setting system settings...\n"
 sleep 1
 
 ## edit /boot/config.txt
-printf "Enabling UART in /boot/config.txt...\n"
+printf "Enabling SPI, I2C, RTC, CAN Overlays in /boot/config.txt...\n"
 
 echo "" | sudo tee -a /boot/config.txt
 echo "# -----------------------" | sudo tee -a /boot/config.txt
@@ -73,6 +73,14 @@ printf "...done\n"
 printf "Disabling console on /dev/serial0...\n"
 
 cut -d ' ' -f 3- < /boot/cmdline.txt | sudo tee /boot/cmdline.txt
+
+printf "...done.\n"
+
+## edit /etc/modules
+
+printf "Enabling i2c-dev module...\n
+
+echo "i2c-dev" | sudo tee -a /etc/modules
 
 printf "...done.\n"
 
