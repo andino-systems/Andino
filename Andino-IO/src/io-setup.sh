@@ -78,7 +78,7 @@ printf "...done.\n"
 
 ## edit /etc/modules
 
-printf "Enabling i2c-dev module...\n
+printf "Enabling i2c-dev module...\n"
 
 echo "i2c-dev" | sudo tee -a /etc/modules
 
