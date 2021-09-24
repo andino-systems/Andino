@@ -1,3 +1,7 @@
+/*
+Andino SMS Processor by Christian Drotleff @ Clear Szstems
+ */
+
 module.exports = function(RED) {
     "use strict";
 	function smsProcessor(config) {

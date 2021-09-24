@@ -1,3 +1,7 @@
+/*
+Andino SMS Listener - by Christian Drotleff @ Clear Systems
+ */
+
 module.exports = function(RED) {
     "use strict";
     function smsListener(config) {
