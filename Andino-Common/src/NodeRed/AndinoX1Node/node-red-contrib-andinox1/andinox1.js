@@ -10,51 +10,54 @@ module.exports = function(RED) {
                 case "events": doEvents(node,msg);break;
                 case "relay1": doRelais(node, msg, 1); break;
                 case "relay2": doRelais(node, msg, 2); break;
-				case "relay1state": getRelais(node, msg, 2); break;
-				case "relay2state": getRelais(node, msg, 2); break;
+				case "relay3": doRelais(node, msg, 3); break;
+				case "temps": doTemps(node, msg); break;
             }
         });
     }
 
     function doEvents(node, msg) {
 
-        var p = msg.payload.split('{');
+        if(msg.payload.charAt(0)!=':'){
+			return;
+		}
+		
+		var p = msg.payload.split('{');
 
-	if((p.length != 3) && (p.length != 4))
-	{
-	  return;
-	}
+		if((p.length != 3) && (p.length != 4))
+		{
+			return;
+		}
 
-	var counter = p[1].replace('}','').split(',');
-	var states  = p[2].replace('}','').split(',');
+		var counter = p[1].replace('}','').split(',');
+		var states  = p[2].replace('}','').split(',');
 
         var newMsg = {
             payload: {} };
 
-	var i = 1;
-	counter.forEach( function(c) {
-	  newMsg.payload["Counter"+i] = parseInt("0x"+c);
-    	  i++;
-	});
+		var i = 1;
+		counter.forEach( function(c) {
+		newMsg.payload["Counter"+i] = parseInt("0x"+c);
+			i++;
+		});
 
-	i = 1;
-	states.forEach( function(p) {
-      	  newMsg.payload["Pin"+i] = parseInt("0x"+p);
-          i++;
-    	});
-   
-	//relay states
-	if(p.length == 4){
-		var relaystates  = p[3].replace('}','').split(',');
 		i = 1;
-		relaystates.forEach( function(q) {
-			newMsg.payload["RelayStates"+i] = parseInt("0x"+q);
+		states.forEach( function(p) {
+			newMsg.payload["Pin"+i] = parseInt("0x"+p);
 			i++;
     	});
+   
+		//relay states
+		if(p.length == 4){
+			var relaystates  = p[3].replace('}','').split(',');
+			i = 1;
+			relaystates.forEach( function(q) {
+				newMsg.payload["RelayState"+i] = parseInt("0x"+q);
+				i++;
+			});
 
-	}
-	node.send(newMsg);
-	
+		}
+		node.send(newMsg);
 	}
 
     function doRelais(node, msg, relais) {
@@ -67,6 +70,36 @@ module.exports = function(RED) {
         }
         node.send(newMsg);
     }
+	
+	function doTemps(node, msg) {
+		
+		var newMsg = {
+            payload: {} };
+		
+		//check if this is actually a temperature message
+		if(msg.payload.charAt(0)!='!'){
+			return;
+		}
+		
+		var qq = msg.payload.split('{');
+		
+		if(qq.length != 3){
+			return;
+		}
+		
+		//modify and split up the message
+		var busnr = parseInt(qq[1]);
+		var temps = qq[2].replace('}','').split(',');
+		
+		newMsg.payload["BusNr"] = busnr;
+		var j = 0;
+		temps.forEach( function(t) {
+			newMsg.payload["Temperature"+j] = parseFloat(t);
+			j++;
+		});
+		
+		node.send(newMsg);
+	}
 
     function toBoolean(source){
         if (typeof(source) == "boolean") {
