@@ -1,13 +1,20 @@
+//Node-Red Andino X1 Node - by Christian Drotleff @ ClearSystems GmbH, 2022
 
 module.exports = function(RED) {
     "use strict";
-    function AndinoX1Node(n) {
+    var valueContext = null;
+	function AndinoX1Node(n) {
         RED.nodes.createNode(this,n);
         this.filter = n.filter || "events";
+		this.chng = n.chng || "0";
         var node = this;
+		valueContext = node.context();
+		valueContext.set("counter", null);
+		valueContext.set("states", null);
+		valueContext.set("relaystates", null);
         this.on("input", function (msg) {
-            switch(node.filter ) {
-                case "events": doEvents(node,msg);break;
+			switch(node.filter ) {
+                case "events": doEvents(node, msg, );break;
                 case "relay1": doRelais(node, msg, 1); break;
                 case "relay2": doRelais(node, msg, 2); break;
 				case "relay3": doRelais(node, msg, 3); break;
@@ -16,6 +23,7 @@ module.exports = function(RED) {
         });
     }
 
+	//function for checking and processing event messages
     function doEvents(node, msg) {
 
         if(msg.payload.charAt(0)!=':'){
@@ -24,8 +32,7 @@ module.exports = function(RED) {
 		
 		var p = msg.payload.split('{');
 
-		if((p.length != 3) && (p.length != 4))
-		{
+		if((p.length != 3) && (p.length != 4)){
 			return;
 		}
 
@@ -34,16 +41,24 @@ module.exports = function(RED) {
 
         var newMsg = {
             payload: {} };
-
+		
+		//pin counters
 		var i = 1;
 		counter.forEach( function(c) {
-		newMsg.payload["Counter"+i] = parseInt("0x"+c);
+			if((valueContext.get("counter")!=null)&&((node.chng == "1")&&(valueContext.get("counter")[i-1] == c))){	
+			}else{
+				newMsg.payload["Counter"+i] = parseInt("0x"+c);	
+			}
 			i++;
 		});
 
+		//pin states
 		i = 1;
 		states.forEach( function(p) {
-			newMsg.payload["Pin"+i] = parseInt("0x"+p);
+			if((valueContext.get("states")!=null)&&((node.chng == "1")&&(valueContext.get("states")[i-1] == p))){
+			}else{
+				newMsg.payload["Pin"+i] = parseInt("0x"+p);
+			}
 			i++;
     	});
    
@@ -52,15 +67,26 @@ module.exports = function(RED) {
 			var relaystates  = p[3].replace('}','').split(',');
 			i = 1;
 			relaystates.forEach( function(q) {
-				newMsg.payload["RelayState"+i] = parseInt("0x"+q);
+				if((valueContext.get("relaystates")!=null)&&((node.chng == "1")&&(valueContext.get("relaystates")[i-1] == q))){
+				}else{
+					newMsg.payload["RelayState"+i] = parseInt("0x"+q);
+				}
 				i++;
 			});
-
+			valueContext.set("relaystates", relaystates);
 		}
-		node.send(newMsg);
+		
+		valueContext.set("counter", counter);
+		valueContext.set("states", states);
+
+		
+		if(Object.keys(newMsg.payload).length != 0){
+			node.send(newMsg);
+		}
 	}
 
-    function doRelais(node, msg, relais) {
+    //function for converting boolean/int/Strings to relay control signal
+	function doRelais(node, msg, relais) {
         var state = toBoolean(msg.payload);
         if (state == null)
             return;
@@ -71,13 +97,14 @@ module.exports = function(RED) {
         node.send(newMsg);
     }
 	
+	//function for checking temperature sensor messages
 	function doTemps(node, msg) {
 		
 		var newMsg = {
             payload: {} };
 		
-		//check if this is actually a temperature message
-		if(msg.payload.charAt(0)!='!'){
+		//check if message is temperature message, supports both old and new temperature message format (either !0000... or :0000@T...)
+		if((msg.payload.charAt(0)!='!')&&(msg.payload.charAt(6)!='T')){
 			return;
 		}
 		

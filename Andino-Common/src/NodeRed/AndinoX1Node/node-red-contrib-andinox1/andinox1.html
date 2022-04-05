@@ -1,4 +1,4 @@
-    <script type="text/x-red" data-template-name="AndinoX1">
+<script type="text/x-red" data-template-name="AndinoX1">
     <div class="form-row">
         <label for="node-input-filter"><i class="fa fa-andinox1"></i> Type</label>
         <select type="text" id="node-input-filter" style="width: 300px;">
@@ -8,6 +8,13 @@
             <option value="events">Events</option>
 			<option value="temps">Temperatures</option>
         </select>
+        <div class="form-row>
+			<label for="node-input-chng"><i class="icon-tag"></i>Filter messages?</label>
+			<select type="text" id="node-input-chng" style="width: 300px;">
+				<option value="0">Process all received messages</option>
+				<option value="1">Only process messages with changed values</option>
+			</select>
+		</div>
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
@@ -18,9 +25,9 @@
 <script type="text/x-red" data-help-name="AndinoX1">
     <p>Filters messages from AndinoX1 depending on the given type.</p>
     <p><b>Events</b>Filters the counter and states values out of the stream and send them as {counter1:nn, counter2:nn, pin1:n, pin2:n, relaystate1:n, relaystate2:n}</p>
-    <p><b>Relais 1</b>Set the relais 1. Bind the output to tty. Input values can be a boolean or a string 0,1 or true,false or yes,no.</p>
-    <p><b>Relais 2</b>Set the relais 2. Bind the output to tty. Input values can be a boolean or a string 0,1 or true,false or yes,no.</p>
-	<p><b>Relais 3</b>Set the relais 3. Bind the output to tty. Input values can be a boolean or a string 0,1 or true,false or yes,no.</p>
+    <p><b>Relay 1</b>Set the relais 1. Bind the output to tty. Input values can be a boolean or a string 0,1 or true,false or yes,no.</p>
+    <p><b>Relay 2</b>Set the relais 2. Bind the output to tty. Input values can be a boolean or a string 0,1 or true,false or yes,no.</p>
+	<p><b>Relay 3</b>Set the relais 3. Bind the output to tty. Input values can be a boolean or a string 0,1 or true,false or yes,no.</p>
 	<p><b>Temperatures</b>Filters the temperatures sent by the AndinoX1 firmware and sends them as {BusNr:n, Temperature1:nn.nn, Temperature2:nn.nn}
 </script>
 
@@ -31,7 +38,8 @@
         defaults: {
             name: {value:""},
             channel: { value: "1" },
-            filter: { value: "counter" }
+            filter: { value: "counter" },
+            chng: { value: "0"}
         },
         inputs:1,
         outputs:1,

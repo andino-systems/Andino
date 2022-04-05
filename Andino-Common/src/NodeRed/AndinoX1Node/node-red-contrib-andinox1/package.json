@@ -1,6 +1,6 @@
 {
   "_from": "node-red-contrib-andinox1",
-  "_id": "node-red-contrib-andinox1@0.0.9",
+  "_id": "node-red-contrib-andinox1@0.1.0",
   "_inBundle": false,
   "_integrity": "sha512-kVHPHj83iVF8kZO9Hru9Wm0vUD5znLXnNoZJMfksBzUXPoDWp5D0Lkh/UYhSK+bhUMBqGv/4z3InwfwrVhtTWw==",
   "_location": "/node-red-contrib-andinox1",
@@ -52,5 +52,5 @@
     "url": "https://github.com/andino-systems/Andino/tree/master/Andino-Common/src/NodeRed/AndinoX1Node/node-red-contrib-andinox1"
   },
   "scripts": {},
-  "version": "0.0.9"
+  "version": "0.1.0"
 }
