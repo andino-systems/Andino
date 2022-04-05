@@ -1,6 +1,0 @@
-gpiozero
-smbus2
-pyserial
-adafruit-circuitpython-ssd1306
-Pillow
-adafruit-blinka
