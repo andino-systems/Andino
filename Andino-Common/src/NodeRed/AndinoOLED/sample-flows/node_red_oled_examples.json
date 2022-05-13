@@ -1,0 +1,443 @@
+[
+    {
+        "id": "d180e92fb103cece",
+        "type": "tab",
+        "label": "OLED Exmaples",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "236210e9c59edc62",
+        "type": "AndinoOLED",
+        "z": "d180e92fb103cece",
+        "dual": "1",
+        "mode1": "40",
+        "mode2": "60",
+        "x": 790,
+        "y": 760,
+        "wires": [
+            [
+                "c2a5f93ce4d6316f"
+            ]
+        ]
+    },
+    {
+        "id": "8006d671916a1518",
+        "type": "function",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "func": "function toTimestamp(secs) {\n    var hours   = Math.floor(secs / 3600);\n    var minutes = Math.floor((secs - (hours * 3600)) / 60);\n    var seconds = secs - (hours * 3600) - (minutes * 60);\n\n    if (hours > 9) { return \"long\"}\n    if (minutes < 10) {minutes = \"0\"+minutes;}\n    if (seconds < 10) {seconds = \"0\"+seconds;}\n    return hours+':'+minutes+':'+seconds;\n}\n\nvar lines1 = [\"ANDINO\", \"SYSTEMS\", \"Up:\", toTimestamp(msg.secs), \"\", \"\"]\nvar lines2 = [\"Customize\", \"via Node-Red\",\"web UI.\", \"Access on:\", msg.payload.substring(0, msg.payload.length-1), \"      :188O\"]\nmsg.lines1 = lines1;\nmsg.lines2 = lines2;\nmsg.secs = msg.secs + 5;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 760,
+        "wires": [
+            [
+                "236210e9c59edc62",
+                "d99169f54c2c632d"
+            ]
+        ]
+    },
+    {
+        "id": "c2a5f93ce4d6316f",
+        "type": "tcp out",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "host": "localhost",
+        "port": "9999",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 1030,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "3310f7e090706b10",
+        "type": "inject",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "props": [
+            {
+                "p": "secs",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 760,
+        "wires": [
+            [
+                "dca0c1af1a32a1f0"
+            ]
+        ]
+    },
+    {
+        "id": "dca0c1af1a32a1f0",
+        "type": "exec",
+        "z": "d180e92fb103cece",
+        "command": "hostname",
+        "addpay": "hostname",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 300,
+        "y": 760,
+        "wires": [
+            [
+                "8006d671916a1518"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d99169f54c2c632d",
+        "type": "delay",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 640,
+        "wires": [
+            [
+                "8006d671916a1518"
+            ]
+        ]
+    },
+    {
+        "id": "77411edd86a9e62e",
+        "type": "comment",
+        "z": "d180e92fb103cece",
+        "name": "Andino Example screen (click on inject node and activate at the bottom if greyed out)",
+        "info": "",
+        "x": 340,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "1465684329c4dd7a",
+        "type": "inject",
+        "z": "d180e92fb103cece",
+        "name": "inject",
+        "props": [
+            {
+                "p": "dual",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 400,
+        "wires": [
+            [
+                "28f64c1493211652"
+            ]
+        ]
+    },
+    {
+        "id": "5cd96824a79f00a4",
+        "type": "switch",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "property": "dual",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 690,
+        "y": 400,
+        "wires": [
+            [
+                "502c320a63691be1"
+            ],
+            [
+                "fa073e7c990c2eca"
+            ]
+        ]
+    },
+    {
+        "id": "02365bc90baa1f65",
+        "type": "AndinoOLED",
+        "z": "d180e92fb103cece",
+        "dual": "0",
+        "mode1": "20",
+        "mode2": "60",
+        "x": 1090,
+        "y": 340,
+        "wires": [
+            [
+                "554876615b9c73b2"
+            ]
+        ]
+    },
+    {
+        "id": "28f64c1493211652",
+        "type": "function",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "func": "var lines1 = [\"Lorem\", \"ipsum\", \"dolor sit a\", \"met, consec\", \"tetur adipi\", \"scing elit.\"]\nvar lines2 = [\"Curabitur l\", \"aoreet phar\", \"etra nibh n\", \"on tincidun\", \"Sed consect\", \"etur alique\"]\nmsg.lines1 = lines1;\nmsg.lines2 = lines2;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 400,
+        "wires": [
+            [
+                "d4b9a22025b095ed"
+            ]
+        ]
+    },
+    {
+        "id": "fdcc4c11f1336564",
+        "type": "AndinoOLED",
+        "z": "d180e92fb103cece",
+        "dual": "1",
+        "mode1": "60",
+        "mode2": "60",
+        "x": 1090,
+        "y": 460,
+        "wires": [
+            [
+                "554876615b9c73b2"
+            ]
+        ]
+    },
+    {
+        "id": "502c320a63691be1",
+        "type": "change",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "dual",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 340,
+        "wires": [
+            [
+                "d4b9a22025b095ed",
+                "02365bc90baa1f65"
+            ]
+        ]
+    },
+    {
+        "id": "fa073e7c990c2eca",
+        "type": "change",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "dual",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 460,
+        "wires": [
+            [
+                "d4b9a22025b095ed",
+                "fdcc4c11f1336564"
+            ]
+        ]
+    },
+    {
+        "id": "d4b9a22025b095ed",
+        "type": "delay",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 520,
+        "y": 400,
+        "wires": [
+            [
+                "5cd96824a79f00a4"
+            ]
+        ]
+    },
+    {
+        "id": "554876615b9c73b2",
+        "type": "tcp out",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "host": "localhost",
+        "port": "9999",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 1269,
+        "y": 399,
+        "wires": []
+    },
+    {
+        "id": "f169ee5cac7727b9",
+        "type": "comment",
+        "z": "d180e92fb103cece",
+        "name": "Automatic mode switch",
+        "info": "",
+        "x": 140,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d5e99286f9d69ab5",
+        "type": "function",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "func": "msg.lines1 = [\"Hello\", \"World!\"]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "47ff7ea2cbc38df1"
+            ]
+        ]
+    },
+    {
+        "id": "47ff7ea2cbc38df1",
+        "type": "AndinoOLED",
+        "z": "d180e92fb103cece",
+        "dual": "0",
+        "mode1": "20",
+        "mode2": "60",
+        "x": 570,
+        "y": 140,
+        "wires": [
+            [
+                "61fd562175509142"
+            ]
+        ]
+    },
+    {
+        "id": "61fd562175509142",
+        "type": "tcp out",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "host": "localhost",
+        "port": "9999",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 830,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "f78e8dcb1a45cff1",
+        "type": "inject",
+        "z": "d180e92fb103cece",
+        "name": "inject",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "d5e99286f9d69ab5"
+            ]
+        ]
+    },
+    {
+        "id": "0bc0968e107fd7c3",
+        "type": "comment",
+        "z": "d180e92fb103cece",
+        "name": "Print Hello World",
+        "info": "",
+        "x": 120,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "ca67042e2381e1ba",
+        "type": "comment",
+        "z": "d180e92fb103cece",
+        "name": "README",
+        "info": "To stop one of the examples after it has been activated, simply move one of the nodes slightly with your mouse (e.g. this readme node), then deploy the Flow again (top right corner)",
+        "x": 1280,
+        "y": 40,
+        "wires": []
+    }
+]
