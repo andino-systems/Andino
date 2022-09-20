@@ -31,6 +31,8 @@ The Andino IO, like the name suggests, provides a greater amount of inputs and o
 
 ## Andino Gateway
 
+![Andino Gateway](./Andino-Gateway/andino-gateway-housing-top_m.png)
+
 The Andino Gateway is a 4G capable device based on the Raspberry Pi. Including a 4G/LoRa-WAN modem, RJ45 port with Gigabit Ethernet and isolated RS485 port, it can be used for both routing purposes, as well as to directly communicate with devices.
 
 * **[Andino Gateway shop page](https://andino.shop/en/c/hardware-shop/andino-gateway)**
