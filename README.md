@@ -29,6 +29,15 @@ The Andino IO, like the name suggests, provides a greater amount of inputs and o
 * **[Andino IO shop page](https://andino.shop/en/c/hardware-shop/andino-io)**
 * **[Andino IO documentation](https://andino.systems/andino-io/andino-io-overview)**
 
+## XIO
+
+![Andino Gateway](./Andino-Gateway/andino-gateway-housing-top_m.png)
+
+The Andino XIO is an industrial PC based on the Raspberry Pi. It provides 6 digital inputs and 6 relay outputs that are connected to rigid connectors. This, combined with its sturdy housing and DIN-Rail mount makes the device ideal for operation in industrial environments. 
+
+* **[Andino XIO shop page](https://andino.shop/en/c/hardware-shop/andino-gateway)**
+* **[Andino XIO documentation](https://andino.systems/andino-xio/andino-xio-6-input-relay-industrial-raspberry-pi-pc)**
+
 ## Andino Gateway
 
 ![Andino Gateway](./Andino-Gateway/andino-gateway-housing-top_m.png)
@@ -36,7 +45,7 @@ The Andino IO, like the name suggests, provides a greater amount of inputs and o
 The Andino Gateway is a 4G capable device based on the Raspberry Pi. Including a 4G/LoRa-WAN modem, RJ45 port with Gigabit Ethernet and isolated RS485 port, it can be used for both routing purposes, as well as to directly communicate with devices.
 
 * **[Andino Gateway shop page](https://andino.shop/en/c/hardware-shop/andino-gateway)**
-* **[Andino IO documentation](https://andino.systems/andino-gateway/andino-gateway-raspberry-pi-router-board)**
+* **[Andino Gateway documentation](https://andino.systems/andino-gateway/andino-gateway-raspberry-pi-router-board)**
 
 ## Andino UPS
 
