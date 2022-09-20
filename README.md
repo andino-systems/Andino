@@ -31,12 +31,21 @@ The Andino IO, like the name suggests, provides a greater amount of inputs and o
 
 ## XIO
 
-![Andino Gateway](./Andino-Gateway/andino-gateway-housing-top_m.png)
+![Andino XIO](./Andino-XIO/andino-xio-housing-top_m.png)
 
 The Andino XIO is an industrial PC based on the Raspberry Pi. It provides 6 digital inputs and 6 relay outputs that are connected to rigid connectors. This, combined with its sturdy housing and DIN-Rail mount makes the device ideal for operation in industrial environments. 
 
 * **[Andino XIO shop page](https://andino.shop/en/c/hardware-shop/andino-gateway)**
 * **[Andino XIO documentation](https://andino.systems/andino-xio/andino-xio-6-input-relay-industrial-raspberry-pi-pc)**
+
+## Pico2Pi
+
+![Pico2Pi](./Pico2Pi/Pico2Pi.jpg)
+
+The Pico2Pi is a variant within the Andino world, which allows to realize control tasks in a very short time. The special thing about it is that the form factor of a Raspberry Pi is used. Thus, the Pico2Pi can be easily upgraded or replaced. 
+
+* **[Pico2Pi shop page](https://andino.shop/en/p/andino-pico2pi)**
+* **[Pico2Pi documentation](https://andino.systems/andino-pico-2-pi/overview)**
 
 ## Andino Gateway
 
