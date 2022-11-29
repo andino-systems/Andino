@@ -6,7 +6,7 @@ This is the default firmware for the Andino X1 Pico. **For full documentation, v
 
 ### Version 005 (221107)
 
-** This is the first version for Andino X1 Pico. All features of the old one have been adopted here.
+**This is the first version for Andino X1 Pico. All features of the old one have been adopted here.
 
 Author
 -----
