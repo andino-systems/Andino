@@ -11,5 +11,5 @@ This is the first version for Andino X1 Pico. All features of the old one have b
 Author
 -----
 
-* 2020 by AndinoSystems
+* 2022 by AndinoSystems
 * [Contact us by email](mailto:info@andino.systems)
