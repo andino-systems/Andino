@@ -4,13 +4,9 @@ This is the default firmware for the Andino X1 Pico. **For full documentation, v
 
 ## Changelog
 
-### Version 008 (210114)
+### Version 005 (221107)
 
-**This version introduces compatibility with the common andino protocol. Make sure to update other software communicating with this firmware if you use the temperature sensor bus functionality!**
-* increased minimum Send Cycle of temperature messages to 2000 ms to make unresponsive behavior less likely
-* added POLLT command
-* added support for new common andino protocol
-* combined message counter for temperature and input/relay status messages
+** This is the first version for Andino X1 Pico. All features of the old one have been adopted here.
 
 Author
 -----
