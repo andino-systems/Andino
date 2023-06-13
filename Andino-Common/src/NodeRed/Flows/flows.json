@@ -1,0 +1,1113 @@
+[
+    {
+        "id": "f75dfdd2090140b8",
+        "type": "tab",
+        "label": "Relay / Inputs Examples",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d180e92fb103cece",
+        "type": "tab",
+        "label": "OLED Exmaples",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "33646430072bdc6d",
+        "type": "tab",
+        "label": "Configuration",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6add0207d6a68530",
+        "type": "inject",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "e702cb2298aade6c"
+            ]
+        ]
+    },
+    {
+        "id": "aca084c86d4e67d8",
+        "type": "inject",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "e702cb2298aade6c"
+            ]
+        ]
+    },
+    {
+        "id": "e702cb2298aade6c",
+        "type": "AndinoX1",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "channel": "1",
+        "filter": "relay1",
+        "chng": "0",
+        "x": 400,
+        "y": 200,
+        "wires": [
+            [
+                "03347c8b576ba960"
+            ]
+        ]
+    },
+    {
+        "id": "03347c8b576ba960",
+        "type": "tcp out",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "host": "localhost",
+        "port": "9999",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 710,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "7c24998b36d77196",
+        "type": "comment",
+        "z": "f75dfdd2090140b8",
+        "name": "Turns on/off an individual relay (configure inside AndinoX1 node)",
+        "info": "",
+        "x": 320,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "2693fd9f05b921f8",
+        "type": "comment",
+        "z": "f75dfdd2090140b8",
+        "name": "Pulse relay 2 for 3 seconds, if pin 1 is turned on (click on TCP in node below and enable it at the bottom first)",
+        "info": "",
+        "x": 450,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "582a9c88d00c1a43",
+        "type": "tcp in",
+        "z": "f75dfdd2090140b8",
+        "d": true,
+        "name": "",
+        "server": "client",
+        "host": "localhost",
+        "port": "9999",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "",
+        "topic": "",
+        "base64": false,
+        "tls": "",
+        "x": 170,
+        "y": 700,
+        "wires": [
+            [
+                "f013a7bc648f3328"
+            ]
+        ]
+    },
+    {
+        "id": "f013a7bc648f3328",
+        "type": "AndinoX1",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "channel": "1",
+        "filter": "events",
+        "chng": "1",
+        "x": 360,
+        "y": 700,
+        "wires": [
+            [
+                "734e2f1a477d1d3f"
+            ]
+        ]
+    },
+    {
+        "id": "734e2f1a477d1d3f",
+        "type": "switch",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "property": "payload.Pin1",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 530,
+        "y": 700,
+        "wires": [
+            [
+                "514de01021d99b0b"
+            ]
+        ]
+    },
+    {
+        "id": "e6bf9b59942ecac5",
+        "type": "AndinoX1",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "channel": "1",
+        "filter": "relay2",
+        "chng": "0",
+        "x": 900,
+        "y": 700,
+        "wires": [
+            [
+                "8868f145e38d95d5"
+            ]
+        ]
+    },
+    {
+        "id": "3341b1bee017dd55",
+        "type": "inject",
+        "z": "f75dfdd2090140b8",
+        "name": "Simulate PIN 1 turned on",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": ":0000{0,0,0,0,0,0}{1,0,0,0,0,0}{0,0,0,0,0,0}",
+        "payloadType": "str",
+        "x": 190,
+        "y": 800,
+        "wires": [
+            [
+                "f013a7bc648f3328"
+            ]
+        ]
+    },
+    {
+        "id": "8868f145e38d95d5",
+        "type": "tcp out",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "host": "localhost",
+        "port": "9999",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 1110,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "87d7b8b64a437d2f",
+        "type": "comment",
+        "z": "f75dfdd2090140b8",
+        "name": "Print changes of input pins/relay states to the debug panel",
+        "info": "",
+        "x": 290,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "d9675fa908a259f9",
+        "type": "tcp in",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "server": "client",
+        "host": "localhost",
+        "port": "9999",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "",
+        "topic": "",
+        "base64": false,
+        "tls": "",
+        "x": 170,
+        "y": 460,
+        "wires": [
+            [
+                "5ac45b8efd25f0c2"
+            ]
+        ]
+    },
+    {
+        "id": "5ac45b8efd25f0c2",
+        "type": "AndinoX1",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "channel": "1",
+        "filter": "events",
+        "chng": "1",
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "d5d61576b43b881a"
+            ]
+        ]
+    },
+    {
+        "id": "d5d61576b43b881a",
+        "type": "debug",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "514de01021d99b0b",
+        "type": "trigger",
+        "z": "f75dfdd2090140b8",
+        "name": "",
+        "op1": "true",
+        "op2": "false",
+        "op1type": "bool",
+        "op2type": "bool",
+        "duration": "3",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 700,
+        "y": 700,
+        "wires": [
+            [
+                "e6bf9b59942ecac5"
+            ]
+        ]
+    },
+    {
+        "id": "236210e9c59edc62",
+        "type": "AndinoOLED",
+        "z": "d180e92fb103cece",
+        "dual": "1",
+        "mode1": "40",
+        "mode2": "60",
+        "x": 790,
+        "y": 760,
+        "wires": [
+            [
+                "c2a5f93ce4d6316f"
+            ]
+        ]
+    },
+    {
+        "id": "8006d671916a1518",
+        "type": "function",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "func": "function toTimestamp(secs) {\n    var hours   = Math.floor(secs / 3600);\n    var minutes = Math.floor((secs - (hours * 3600)) / 60);\n    var seconds = secs - (hours * 3600) - (minutes * 60);\n\n    if (hours > 9) { return \"long\"}\n    if (minutes < 10) {minutes = \"0\"+minutes;}\n    if (seconds < 10) {seconds = \"0\"+seconds;}\n    return hours+':'+minutes+':'+seconds;\n}\n\nvar lines1 = [\"ANDINO\", \"SYSTEMS\", \"Up:\", toTimestamp(msg.secs), \"\", \"\"]\nvar lines2 = [\"Customize\", \"via Node-Red\",\"web UI.\", \"Access on:\", msg.payload.substring(0, msg.payload.length-1), \"      :188O\"]\nmsg.lines1 = lines1;\nmsg.lines2 = lines2;\nmsg.secs = msg.secs + 5;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 760,
+        "wires": [
+            [
+                "236210e9c59edc62",
+                "d99169f54c2c632d"
+            ]
+        ]
+    },
+    {
+        "id": "c2a5f93ce4d6316f",
+        "type": "tcp out",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "host": "localhost",
+        "port": "9999",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 1030,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "3310f7e090706b10",
+        "type": "inject",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "props": [
+            {
+                "p": "secs",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 760,
+        "wires": [
+            [
+                "dca0c1af1a32a1f0"
+            ]
+        ]
+    },
+    {
+        "id": "dca0c1af1a32a1f0",
+        "type": "exec",
+        "z": "d180e92fb103cece",
+        "command": "hostname",
+        "addpay": "hostname",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 300,
+        "y": 760,
+        "wires": [
+            [
+                "8006d671916a1518"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d99169f54c2c632d",
+        "type": "delay",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 640,
+        "wires": [
+            [
+                "8006d671916a1518"
+            ]
+        ]
+    },
+    {
+        "id": "77411edd86a9e62e",
+        "type": "comment",
+        "z": "d180e92fb103cece",
+        "name": "Andino Example screen (click on inject node and activate at the bottom if greyed out)",
+        "info": "",
+        "x": 340,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "1465684329c4dd7a",
+        "type": "inject",
+        "z": "d180e92fb103cece",
+        "name": "inject",
+        "props": [
+            {
+                "p": "dual",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 400,
+        "wires": [
+            [
+                "28f64c1493211652"
+            ]
+        ]
+    },
+    {
+        "id": "5cd96824a79f00a4",
+        "type": "switch",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "property": "dual",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 690,
+        "y": 400,
+        "wires": [
+            [
+                "502c320a63691be1"
+            ],
+            [
+                "fa073e7c990c2eca"
+            ]
+        ]
+    },
+    {
+        "id": "02365bc90baa1f65",
+        "type": "AndinoOLED",
+        "z": "d180e92fb103cece",
+        "dual": "0",
+        "mode1": "20",
+        "mode2": "60",
+        "x": 1090,
+        "y": 340,
+        "wires": [
+            [
+                "554876615b9c73b2"
+            ]
+        ]
+    },
+    {
+        "id": "28f64c1493211652",
+        "type": "function",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "func": "var lines1 = [\"Lorem\", \"ipsum\", \"dolor sit a\", \"met, consec\", \"tetur adipi\", \"scing elit.\"]\nvar lines2 = [\"Curabitur l\", \"aoreet phar\", \"etra nibh n\", \"on tincidun\", \"Sed consect\", \"etur alique\"]\nmsg.lines1 = lines1;\nmsg.lines2 = lines2;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 400,
+        "wires": [
+            [
+                "d4b9a22025b095ed"
+            ]
+        ]
+    },
+    {
+        "id": "fdcc4c11f1336564",
+        "type": "AndinoOLED",
+        "z": "d180e92fb103cece",
+        "dual": "1",
+        "mode1": "60",
+        "mode2": "60",
+        "x": 1090,
+        "y": 460,
+        "wires": [
+            [
+                "554876615b9c73b2"
+            ]
+        ]
+    },
+    {
+        "id": "502c320a63691be1",
+        "type": "change",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "dual",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 340,
+        "wires": [
+            [
+                "d4b9a22025b095ed",
+                "02365bc90baa1f65"
+            ]
+        ]
+    },
+    {
+        "id": "fa073e7c990c2eca",
+        "type": "change",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "dual",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 460,
+        "wires": [
+            [
+                "d4b9a22025b095ed",
+                "fdcc4c11f1336564"
+            ]
+        ]
+    },
+    {
+        "id": "d4b9a22025b095ed",
+        "type": "delay",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 520,
+        "y": 400,
+        "wires": [
+            [
+                "5cd96824a79f00a4"
+            ]
+        ]
+    },
+    {
+        "id": "554876615b9c73b2",
+        "type": "tcp out",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "host": "localhost",
+        "port": "9999",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 1269,
+        "y": 399,
+        "wires": []
+    },
+    {
+        "id": "f169ee5cac7727b9",
+        "type": "comment",
+        "z": "d180e92fb103cece",
+        "name": "Automatic mode switch",
+        "info": "",
+        "x": 140,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d5e99286f9d69ab5",
+        "type": "function",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "func": "msg.lines1 = [\"Hello\", \"World!\"]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "47ff7ea2cbc38df1"
+            ]
+        ]
+    },
+    {
+        "id": "47ff7ea2cbc38df1",
+        "type": "AndinoOLED",
+        "z": "d180e92fb103cece",
+        "dual": "0",
+        "mode1": "20",
+        "mode2": "60",
+        "x": 570,
+        "y": 140,
+        "wires": [
+            [
+                "61fd562175509142"
+            ]
+        ]
+    },
+    {
+        "id": "61fd562175509142",
+        "type": "tcp out",
+        "z": "d180e92fb103cece",
+        "name": "",
+        "host": "localhost",
+        "port": "9999",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 830,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "f78e8dcb1a45cff1",
+        "type": "inject",
+        "z": "d180e92fb103cece",
+        "name": "inject",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "d5e99286f9d69ab5"
+            ]
+        ]
+    },
+    {
+        "id": "0bc0968e107fd7c3",
+        "type": "comment",
+        "z": "d180e92fb103cece",
+        "name": "Print Hello World",
+        "info": "",
+        "x": 120,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "ca67042e2381e1ba",
+        "type": "comment",
+        "z": "d180e92fb103cece",
+        "name": "README",
+        "info": "To stop one of the examples after it has been activated, simply move one of the nodes slightly with your mouse (e.g. this readme node), then deploy the Flow again (top right corner)",
+        "x": 1360,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "2eb5102edb63fefe",
+        "type": "link in",
+        "z": "d180e92fb103cece",
+        "name": "Print from other flows",
+        "links": [
+            "b14fb3b8f961d171"
+        ],
+        "x": 135,
+        "y": 200,
+        "wires": [
+            [
+                "d5e99286f9d69ab5"
+            ]
+        ]
+    },
+    {
+        "id": "1caaccec64934c89",
+        "type": "comment",
+        "z": "d180e92fb103cece",
+        "name": "Disable \"inject ones after...\" in the inject node to prevent this example from automatically starting",
+        "info": "To stop one of the examples after it has been activated, simply move one of the nodes slightly with your mouse (e.g. this readme node), then deploy the Flow again (top right corner)",
+        "x": 970,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "f096398a8d500d36",
+        "type": "comment",
+        "z": "33646430072bdc6d",
+        "name": "OLED CONFIGURATION",
+        "info": "",
+        "x": 150,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d66342fd82259dae",
+        "type": "comment",
+        "z": "33646430072bdc6d",
+        "name": "Rotate OLED (readme)",
+        "info": "Since, due to manufacturing constraints, not all Andino models have the same rotation of the built-in OLED screen, it needs to be rotated manually in the Andinopy config. This can be done either using the two buttons below.\n\nAlternatively, you can also manually modify the configuration file at **/home/pi/andinopy/andinopy_cfg/generated_saved.cfg**\n\nAfterwards, restart andinopy by running **sudo supervisorctl restart andinopy**\n\nIf changing the OLED orientation in this file does not work, try changing the same value in **generated.cfg** in the same directory and restart andinopy afterwards.",
+        "x": 320,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7448cd3eb186a1c8",
+        "type": "inject",
+        "z": "33646430072bdc6d",
+        "name": "Set OLED rotation 0",
+        "props": [
+            {
+                "p": "value",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "p": "parameter",
+                "v": "rotate",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 310,
+        "y": 200,
+        "wires": [
+            [
+                "a780241e9ffe2505"
+            ]
+        ]
+    },
+    {
+        "id": "2206b82a7da3f5b1",
+        "type": "inject",
+        "z": "33646430072bdc6d",
+        "name": "Set OLED rotation 1 (default)",
+        "props": [
+            {
+                "p": "value",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "parameter",
+                "v": "rotate",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 340,
+        "y": 240,
+        "wires": [
+            [
+                "a780241e9ffe2505"
+            ]
+        ]
+    },
+    {
+        "id": "9b8d4f34b7ac6d4e",
+        "type": "file in",
+        "z": "33646430072bdc6d",
+        "name": "Read config file 1",
+        "filename": "/home/pi/andinopy/andinopy_cfg/generated_saved.cfg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 970,
+        "y": 200,
+        "wires": [
+            [
+                "2595e20432dc85bf"
+            ]
+        ]
+    },
+    {
+        "id": "842457d985dfa5b9",
+        "type": "file",
+        "z": "33646430072bdc6d",
+        "name": "Write config file 1",
+        "filename": "/home/pi/andinopy/andinopy_cfg/generated_saved.cfg",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1370,
+        "y": 200,
+        "wires": [
+            [
+                "8d52960c28689f3a"
+            ]
+        ]
+    },
+    {
+        "id": "2595e20432dc85bf",
+        "type": "function",
+        "z": "33646430072bdc6d",
+        "name": "Modify config",
+        "func": "function changeConfigSetting(configContent, settingToChange, newValue) {\n  // Split the configContent into an array of lines\n  const lines = configContent.split('\\n');\n\n  // Find the line that contains the setting to be changed\n  const lineIndex = lines.findIndex(line => line.startsWith(settingToChange));\n\n  // If the line was found, update the setting with the new value\n  if (lineIndex !== -1) {\n    const currentLine = lines[lineIndex];\n    const newLine = `${settingToChange}=${newValue}`;\n    lines[lineIndex] = newLine;\n  } else {\n    // If the line was not found, add a new line with the setting and value\n    const newLine = `${settingToChange}=${newValue}`;\n    lines.push(newLine);\n  }\n\n  // Join the lines back into a single string\n  const updatedConfigContent = lines.join('\\n');\n\n  return updatedConfigContent;\n}\n\nmsg.payload = changeConfigSetting(msg.payload, msg.parameter, msg.value)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 200,
+        "wires": [
+            [
+                "842457d985dfa5b9"
+            ]
+        ]
+    },
+    {
+        "id": "8d52960c28689f3a",
+        "type": "exec",
+        "z": "33646430072bdc6d",
+        "command": "sudo supervisorctl restart andinopy",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Restart andinopy",
+        "x": 1590,
+        "y": 220,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a780241e9ffe2505",
+        "type": "delay",
+        "z": "33646430072bdc6d",
+        "name": "Rate limit to ensure complete reloads",
+        "pauseType": "rate",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "60",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 690,
+        "y": 220,
+        "wires": [
+            [
+                "9b8d4f34b7ac6d4e",
+                "89924d6a2fa143b2"
+            ]
+        ]
+    },
+    {
+        "id": "89924d6a2fa143b2",
+        "type": "file in",
+        "z": "33646430072bdc6d",
+        "name": "Read config file 2",
+        "filename": "/home/pi/andinopy/andinopy_cfg/generated.cfg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 970,
+        "y": 240,
+        "wires": [
+            [
+                "b495cdd7ab4ac4b5"
+            ]
+        ]
+    },
+    {
+        "id": "43f4b023b6fd65f1",
+        "type": "file",
+        "z": "33646430072bdc6d",
+        "name": "Write config file 2",
+        "filename": "/home/pi/andinopy/andinopy_cfg/generated.cfg",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1370,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b495cdd7ab4ac4b5",
+        "type": "function",
+        "z": "33646430072bdc6d",
+        "name": "Modify config",
+        "func": "function changeConfigSetting(configContent, settingToChange, newValue) {\n  // Split the configContent into an array of lines\n  const lines = configContent.split('\\n');\n\n  // Find the line that contains the setting to be changed\n  const lineIndex = lines.findIndex(line => line.startsWith(settingToChange));\n\n  // If the line was found, update the setting with the new value\n  if (lineIndex !== -1) {\n    const currentLine = lines[lineIndex];\n    const newLine = `${settingToChange}=${newValue}`;\n    lines[lineIndex] = newLine;\n  } else {\n    // If the line was not found, add a new line with the setting and value\n    const newLine = `${settingToChange}=${newValue}`;\n    lines.push(newLine);\n  }\n\n  // Join the lines back into a single string\n  const updatedConfigContent = lines.join('\\n');\n\n  return updatedConfigContent;\n}\n\nmsg.payload = changeConfigSetting(msg.payload, msg.parameter, msg.value)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 240,
+        "wires": [
+            [
+                "43f4b023b6fd65f1"
+            ]
+        ]
+    },
+    {
+        "id": "3130e6d11d8546af",
+        "type": "function",
+        "z": "33646430072bdc6d",
+        "name": "",
+        "func": "msg.lines1 = [\"TEST123\", \"456TEST\"]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 300,
+        "wires": [
+            [
+                "eeef7def82a57fb7"
+            ]
+        ]
+    },
+    {
+        "id": "eeef7def82a57fb7",
+        "type": "AndinoOLED",
+        "z": "33646430072bdc6d",
+        "dual": "0",
+        "mode1": "20",
+        "mode2": "60",
+        "x": 1410,
+        "y": 300,
+        "wires": [
+            [
+                "0ac5d5a711b03010"
+            ]
+        ]
+    },
+    {
+        "id": "0ac5d5a711b03010",
+        "type": "tcp out",
+        "z": "33646430072bdc6d",
+        "name": "",
+        "host": "localhost",
+        "port": "9999",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 1590,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "9c253d8c037a6c41",
+        "type": "inject",
+        "z": "33646430072bdc6d",
+        "name": "Send test message (it can take up to several minutes for Andinopy to reload)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 490,
+        "y": 300,
+        "wires": [
+            [
+                "3130e6d11d8546af"
+            ]
+        ]
+    }
+]
